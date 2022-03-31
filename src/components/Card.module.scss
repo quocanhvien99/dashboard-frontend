@@ -1,0 +1,53 @@
+.Card {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	border-radius: 10px 0 10px 0;
+	border-width: 1px;
+	border-style: solid;
+	p {
+		margin: 0;
+		font-weight: 500;
+		&.total {
+			font-size: x-large;
+			font-weight: bold;
+		}
+	}
+	span {
+		padding: 10px;
+		font-size: x-large;
+		color: #fff;
+		background-color: red;
+		border-radius: 10px;
+	}
+}
+.primary.Card {
+	border-color: #a0c5e8;
+	background-color: #d1effe;
+	span {
+		background-color: #a0c5e8;
+	}
+}
+.secondary.Card {
+	border-color: #d1effe;
+	background-color: #e2e1fe;
+	span {
+		background-color: #d1effe;
+	}
+}
+.alert.Card {
+	border-color: #f46841;
+	background-color: #fde1d9;
+	span {
+		background-color: #f46841;
+	}
+}
+.warning.Card {
+	border-color: #fdbb38;
+	background-color: #fedd9b;
+	span {
+		background-color: #fdbb38;
+	}
+}
