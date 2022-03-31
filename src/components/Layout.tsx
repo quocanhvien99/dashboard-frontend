@@ -1,13 +1,6 @@
-import React, { ReactChildren, useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Avatar, Breadcrumb, Layout, Menu } from 'antd';
-import {
-	MenuUnfoldOutlined,
-	MenuFoldOutlined,
-	UserOutlined,
-	VideoCameraOutlined,
-	UploadOutlined,
-	DownOutlined,
-} from '@ant-design/icons';
+import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, DownOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import './Layout.scss';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import nav from '../config/nav.config';
 import { logout as logoutAction } from '../slices/user';
 import Title from 'antd/lib/typography/Title';
+import { Footer } from 'antd/lib/layout/layout';
 
 const { Header, Sider, Content } = Layout;
 
@@ -29,6 +23,7 @@ interface Props {
 function LayoutCustom({ children, title, breadcrumb }: Props) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const ref = useRef<HTMLDivElement>(null);
 
 	const [collapsed, setCollapsed] = useState(false);
 	const [collapsedWidth, setCollapsedWidth] = useState<undefined | number>(undefined);
@@ -40,7 +35,20 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 	};
 	useEffect(() => {
 		if (!userInfo) navigate('/signin');
-	}, [userInfo]);
+	}, [userInfo, navigate]);
+	useEffect(() => {
+		function handleClickOutside(event: MouseEvent) {
+			if (ref.current && !ref.current.contains(event.target as Node)) {
+				setCollapsedUser(false);
+			}
+		}
+		// Bind
+		document.addEventListener('mousedown', handleClickOutside);
+		return () => {
+			// dispose
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
 
 	return (
 		<Layout>
@@ -50,6 +58,7 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 				trigger={null}
 				breakpoint="md"
 				collapsedWidth={collapsedWidth}
+				width={300}
 				onBreakpoint={(broken) => {
 					setCollapsed(broken);
 					if (broken) setCollapsedWidth(0);
@@ -89,12 +98,14 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 						className: 'trigger',
 						onClick: () => setCollapsed(!collapsed),
 					})}
-					<div className="user-management" onClick={() => setCollapsedUser(!collapsedUser)}>
-						<Avatar icon={<UserOutlined />} src={(userInfo as userType).profile_pic} />
-						<DownOutlined
-							style={{ fontSize: 'small', marginLeft: '5px', color: '#18AEFB', transition: 'all 0.5s' }}
-							className={collapsedUser ? 'collapsed' : ''}
-						/>
+					<div ref={ref} className="user-management">
+						<div onClick={() => setCollapsedUser(!collapsedUser)}>
+							<Avatar icon={<UserOutlined />} src={(userInfo as userType).profile_pic} />
+							<DownOutlined
+								style={{ fontSize: 'small', marginLeft: '5px', color: '#18AEFB', transition: 'all 0.5s' }}
+								className={collapsedUser ? 'collapsed' : ''}
+							/>
+						</div>
 						<ul className="drop-down" style={{ display: collapsedUser ? 'block' : 'none' }}>
 							<li>
 								<Avatar size="large" icon={<UserOutlined />} src={(userInfo as userType).profile_pic}></Avatar>
@@ -118,15 +129,16 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 						minHeight: 280,
 					}}>
 					<Title>{title}</Title>
-					<Breadcrumb>
-						{breadcrumb.map((x) => (
-							<Breadcrumb.Item>
+					<Breadcrumb className="breadcrumb">
+						{breadcrumb.map((x, i) => (
+							<Breadcrumb.Item key={i}>
 								<Link to={x.to}>{x.title}</Link>
 							</Breadcrumb.Item>
 						))}
 					</Breadcrumb>
 					{children}
 				</Content>
+				<Footer style={{ textAlign: 'center' }}></Footer>
 			</Layout>
 		</Layout>
 	);

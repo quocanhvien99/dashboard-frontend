@@ -14,10 +14,11 @@
 .logo {
 	padding: 15px;
 	img {
-		max-width: 70%;
+		max-height: 30px;
 	}
 }
 .site-layout {
+	min-height: 100vh;
 	.header {
 		display: flex;
 		justify-content: space-between;
@@ -29,12 +30,15 @@
 			line-height: normal !important;
 			border: 1px solid #dfdfdf;
 			padding: 0;
+			z-index: 6;
+			background-color: #fff;
 			li:first-of-type {
 				display: flex;
 				align-items: center;
 				background-color: #f3f4f6;
+				cursor: default;
 				div {
-					margin-left: 10px;
+					margin-left: 15px;
 				}
 				.name {
 					font-size: large;
@@ -46,7 +50,7 @@
 			}
 			li {
 				list-style: none;
-				padding: 10px 15px;
+				padding: 10px 20px;
 				font-weight: 500;
 			}
 			li:not(:first-of-type) {
@@ -72,4 +76,10 @@
 			transform: rotate(180deg);
 		}
 	}
+}
+h1 {
+	margin-bottom: 5px !important;
+}
+.breadcrumb {
+	margin: 10px 0 20px 0;
 }

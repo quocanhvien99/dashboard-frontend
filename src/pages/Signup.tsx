@@ -15,7 +15,7 @@ function Signup() {
 
 	useEffect(() => {
 		if (isLoggedIn) navigate('/');
-	}, []);
+	}, [isLoggedIn, navigate]);
 
 	function onFinish(values: { name: string; email: string; password: string }) {
 		setIsFetching(true);
