@@ -1,0 +1,12 @@
+.Card {
+	padding: 20px;
+	margin-top: 20px;
+	border: 1px solid #eff0f1;
+	border-radius: 5px;
+	.title {
+		font-size: x-large;
+		font-weight: 500;
+		text-transform: capitalize;
+		margin: 0 0 20px 0;
+	}
+}

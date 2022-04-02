@@ -22,7 +22,7 @@ function Signin() {
 		if (isLoggedIn) {
 			navigate('/');
 		}
-	}, [isLoggedIn]);
+	}, [isLoggedIn, navigate]);
 
 	function onFinish(values: { email: string; password: string; remember: true }) {
 		setIsFetching(true);

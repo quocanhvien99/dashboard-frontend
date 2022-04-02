@@ -28,7 +28,8 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 	const [collapsed, setCollapsed] = useState(false);
 	const [collapsedWidth, setCollapsedWidth] = useState<undefined | number>(undefined);
 	const [collapsedUser, setCollapsedUser] = useState(false);
-	const userInfo = useSelector((state: RootState) => state.user.userInfo);
+	const userInfoState = useSelector((state: RootState) => state.user.userInfo);
+	const userInfo = userInfoState as userType;
 
 	const logout = () => {
 		dispatch(logoutAction());
@@ -80,12 +81,14 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 							return (
 								<SubMenu key={i} icon={<x.icon />} title={x.title}>
 									{x.submenu.map((y: any, iy: string) => (
-										<Menu.Item key={`${i}${iy}`}>{y.title}</Menu.Item>
+										<Menu.Item key={`${i}${iy}`} onClick={() => navigate(y.to)}>
+											{y.title}
+										</Menu.Item>
 									))}
 								</SubMenu>
 							);
 						return (
-							<Menu.Item key={i} icon={<x.icon />}>
+							<Menu.Item key={i} icon={<x.icon />} onClick={() => navigate(x.to)}>
 								{x.title}
 							</Menu.Item>
 						);
@@ -110,12 +113,12 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 							<li>
 								<Avatar size="large" icon={<UserOutlined />} src={(userInfo as userType).profile_pic}></Avatar>
 								<div>
-									<span className="name">{'Quoc Anh'}</span>
+									<span className="name">{userInfo.name}</span>
 									<br />
-									<span className="role">{'Teacher'}</span>
+									<span className="role">{userInfo.role}</span>
 								</div>
 							</li>
-							<li onClick={() => navigate('/')}>My profile</li>
+							<li onClick={() => navigate('/profile')}>My profile</li>
 							<li onClick={() => navigate('/')}>Inbox</li>
 							<li onClick={logout}>Logout</li>
 						</ul>

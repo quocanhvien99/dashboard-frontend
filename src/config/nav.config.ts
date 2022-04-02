@@ -6,24 +6,24 @@ const nav: { [key: string]: any } = {
 		{
 			title: 'students',
 			submenu: [
-				{ title: 'student list', to: '/student' },
-				{ title: 'student add', to: '/student/add' },
+				{ title: 'student list', to: '/students' },
+				{ title: 'student add', to: '/students/add' },
 			],
 			icon: UserOutlined,
 		},
 		{
 			title: 'teachers',
 			submenu: [
-				{ title: 'teacher list', to: '/teacher' },
-				{ title: 'teacher add', to: '/teacher/add' },
+				{ title: 'teacher list', to: '/teachers' },
+				{ title: 'teacher add', to: '/teachers/add' },
 			],
 			icon: UserOutlined,
 		},
 		{
 			title: 'department',
 			submenu: [
-				{ title: 'department list', to: '/department' },
-				{ title: 'department add', to: '/department/add' },
+				{ title: 'department list', to: '/departments' },
+				{ title: 'department add', to: '/departments/add' },
 			],
 			icon: UserOutlined,
 		},

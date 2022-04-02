@@ -1,0 +1,149 @@
+.userInfo {
+	border: 1px solid #eff0f1;
+	border-bottom-width: 3px;
+	> div {
+		padding: 20px;
+	}
+	.content {
+		display: flex;
+		align-items: center;
+		background-color: #f0f1f2;
+		.center {
+			flex: 1;
+			line-height: 0 !important;
+			padding: 0 20px;
+		}
+		.name {
+			font-size: x-large;
+			font-weight: 500;
+			text-transform: capitalize;
+		}
+		.role {
+			font-size: medium;
+			text-transform: uppercase;
+			font-weight: 500;
+			color: #757575;
+		}
+	}
+}
+
+.btn {
+	border: none;
+	color: #fff;
+	border-radius: 5px;
+	padding: 5px 15px;
+	font-weight: 500;
+	font-size: large;
+	cursor: pointer;
+	&:hover {
+		opacity: 70%;
+	}
+}
+
+.footer {
+	display: flex;
+	font-size: large;
+	font-weight: 500;
+	> div {
+		padding: 5px 15px;
+		transition: all 0.5s;
+		cursor: pointer;
+		&:hover {
+			background-color: #f0f1f2;
+		}
+		&.active {
+			background-color: #ffbc53;
+			color: #fff;
+		}
+	}
+}
+
+.Card {
+	padding: 20px;
+	margin-top: 20px;
+	border: 1px solid #eff0f1;
+	border-radius: 5px;
+	.title {
+		font-size: x-large;
+		font-weight: 500;
+		text-transform: capitalize;
+		margin: 0 0 20px 0;
+	}
+}
+
+.detail {
+	.title {
+		& ~ div {
+			margin-left: auto;
+			font-size: 16px;
+			cursor: pointer;
+			&:hover {
+				color: #0d6efd;
+			}
+		}
+	}
+	.row {
+		display: flex;
+		font-weight: 500;
+		margin-bottom: 10px;
+		.col:first-of-type {
+			flex: 0.2;
+			text-align: right;
+			margin-right: 20px;
+			font-size: 16px;
+			color: #757575;
+		}
+		.col:last-of-type {
+			flex: 0.8;
+			text-align: left;
+			font-size: 16px;
+		}
+	}
+}
+
+label,
+input {
+	display: block;
+	font-size: 16px;
+	font-weight: 500;
+}
+input {
+	border: 1px solid #eff0f1;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin-bottom: 10px;
+}
+.password {
+	input {
+		width: 50%;
+		&:focus {
+			outline-color: #ffbc53;
+		}
+	}
+}
+.editprofile {
+	input {
+		width: 100%;
+		&:focus {
+			outline-color: #1890ff;
+		}
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.userInfo {
+		.content {
+			flex-direction: column;
+			.center {
+				margin: 20px 0;
+				text-align: center;
+			}
+		}
+	}
+	.row {
+		flex-direction: column;
+		.col {
+			text-align: left !important;
+		}
+	}
+}
