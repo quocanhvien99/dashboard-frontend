@@ -43,38 +43,43 @@ function Signin() {
 	return (
 		<>
 			<Helmet>
-				<title>Đăng nhập</title>
+				<title>Sign in</title>
 			</Helmet>
 			<Row justify="center" style={{ margin: '40px' }}>
-				<Col md={6}>
-					<Title style={{ textAlign: 'center' }}>Đăng nhập</Title>
-					<Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+				<Col xs={24} sm={12} md={10} lg={8} xl={6}>
+					<Title style={{ textAlign: 'center' }}>Sign In</Title>
+					<Form
+						name="normal_login"
+						className="login-form"
+						initialValues={{ remember: true }}
+						onFinish={onFinish}
+						style={{ marginTop: '30px ' }}>
 						<Form.Item
 							name="email"
 							rules={[
-								{ type: 'email', message: 'Email không hợp lệ' },
-								{ required: true, message: 'Hãy nhập email!' },
+								{ type: 'email', message: 'The input is not valid E-mail!' },
+								{ required: true, message: 'Please input your email!' },
 							]}>
 							<Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
 						</Form.Item>
-						<Form.Item name="password" rules={[{ required: true, message: 'Hãy nhập mật khẩu!' }]}>
-							<Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Mật khẩu" />
+						<Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+							<Input prefix={<LockOutlined className="site-form-item-icon" />} type="password" placeholder="Password" />
 						</Form.Item>
 						<Form.Item>
 							<Form.Item name="remember" valuePropName="checked" noStyle>
-								<Checkbox>Ghi nhớ</Checkbox>
+								<Checkbox>Remember me</Checkbox>
 							</Form.Item>
 
 							<Link className="login-form-forgot" to="/">
-								Quên mật khẩu
+								Forgot password
 							</Link>
 						</Form.Item>
 
 						<Form.Item>
 							<Button disabled={isFetching} type="primary" htmlType="submit" className="login-form-button">
-								Đăng nhập
+								Sign in
 							</Button>{' '}
-							Hoặc <Link to="/signup">đăng ký!</Link>
+							Or <Link to="/signup">register now!</Link>
 						</Form.Item>
 					</Form>
 				</Col>

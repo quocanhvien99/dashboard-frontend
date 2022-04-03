@@ -5,6 +5,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import Profile from '../pages/Profile';
 import StudentList from '../pages/StudentList';
 import StudentAdd from '../pages/StudentAdd';
+import TeacherAdd from '../pages/TeacherAdd';
 
 const routes = [
 	{
@@ -44,6 +45,14 @@ const routes = [
 		element: (
 			<ProtectedRoute>
 				<StudentAdd />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/teachers/add',
+		element: (
+			<ProtectedRoute>
+				<TeacherAdd />
 			</ProtectedRoute>
 		),
 	},

@@ -1,0 +1,61 @@
+label,
+input,
+select {
+	width: 100%;
+	font-size: 16px;
+	font-weight: 500;
+}
+label {
+	margin-bottom: 10px;
+}
+input,
+select {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 5px 10px;
+	margin-bottom: 20px;
+	&:focus {
+		outline: none;
+		border: 1px solid #ffbc53;
+	}
+}
+.select-custom {
+	position: relative;
+	select {
+		appearance: none;
+		padding-right: 30px;
+	}
+	span {
+		position: absolute;
+		top: 8px;
+		right: 5px;
+		pointer-events: none;
+		color: #ddd;
+	}
+	&:focus-within {
+		span {
+			transform: rotate(180deg);
+		}
+	}
+}
+input[type='file'] {
+	padding: 0;
+	&::file-selector-button {
+		border: none;
+		padding: 5px 10px;
+		margin-right: 10px;
+	}
+}
+.btn {
+	border: none;
+	color: #fff;
+	background: #ffbc53;
+	border-radius: 5px;
+	padding: 5px 15px;
+	font-weight: 500;
+	font-size: large;
+	cursor: pointer;
+	&:hover {
+		background: #18aefa;
+	}
+}

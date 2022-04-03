@@ -1,13 +1,13 @@
+import { Col, notification, Row } from 'antd';
 import React, { FormEventHandler } from 'react';
 import { Helmet } from 'react-helmet';
 import Card1 from '../components/Card1';
 import Layout from '../components/Layout';
 import '../components/Form.scss';
-import { Col, notification, Row } from 'antd';
-import { addUser } from '../api';
 import SC from '../components/Card1.module.scss';
+import { addUser } from '../api';
 
-export default function StudentAdd() {
+export default function TeacherAdd() {
 	const submit: FormEventHandler = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget as HTMLFormElement);
@@ -18,11 +18,11 @@ export default function StudentAdd() {
 			});
 
 		formData.delete('confirm');
-		addUser(formData, 'student')
+		addUser(formData, 'teacher')
 			.then((res) =>
 				notification['success']({
 					message: 'Success',
-					description: 'Student information has been saved',
+					description: 'Teacher information has been saved',
 				})
 			)
 			.catch((err) =>
@@ -36,19 +36,19 @@ export default function StudentAdd() {
 	return (
 		<>
 			<Helmet>
-				<title>Add Students</title>
+				<title>Add Teachers</title>
 			</Helmet>
 			<Layout
-				title="add students"
+				title="add teachers"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
-					{ title: 'Students', to: '/students/' },
-					{ title: 'Add', to: '/students/add' },
+					{ title: 'Teachers', to: '/teachers/' },
+					{ title: 'Add', to: '/teachers/add' },
 				]}>
 				<Card1>
 					<form onSubmit={submit}>
 						<h5 className={SC.title}>
-							<span>Student Information</span>
+							<span>Teacher Information</span>
 						</h5>
 						<Row gutter={24}>
 							<Col xs={24} sm={12}>
@@ -76,7 +76,7 @@ export default function StudentAdd() {
 								<input type="text" name="phone" id="phone" />
 							</Col>
 							<Col xs={24} sm={12}>
-								<label htmlFor="profile_pic">Student Image</label>
+								<label htmlFor="profile_pic">Teacher Image</label>
 								<input type="file" name="profile_pic" id="profile_pic" />
 							</Col>
 							<Col xs={24} sm={12}>

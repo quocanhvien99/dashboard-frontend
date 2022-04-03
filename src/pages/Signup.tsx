@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Col, Form, Input, notification, Row } from 'antd';
+import { Alert, Button, Col, Form, Input, notification, Row } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as api from '../api';
@@ -10,6 +10,7 @@ import Title from 'antd/lib/typography/Title';
 
 function Signup() {
 	const [isFetching, setIsFetching] = useState(false);
+	const [alert, setAlert] = useState('');
 	const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 	const navigate = useNavigate();
 
@@ -23,16 +24,13 @@ function Signup() {
 			.register(values.name, values.email, values.password)
 			.then((_) => {
 				notification['success']({
-					message: 'Thành công',
-					description: 'Đăng ký thành công chuyển sang trang đăng nhập',
+					message: 'Success',
+					description: 'Your account has been successfully created!',
 				});
-				navigate('/login');
+				navigate('/signin');
 			})
 			.catch((err) => {
-				notification['error']({
-					message: 'Lỗi',
-					description: err,
-				});
+				setAlert(err);
 			})
 			.finally(() => setIsFetching(false));
 	}
@@ -40,52 +38,69 @@ function Signup() {
 	return (
 		<>
 			<Helmet>
-				<title>Đăng ký</title>
+				<title>Sign up</title>
 			</Helmet>
 			<Row justify="center" style={{ margin: '40px' }}>
-				<Col md={6}>
-					<Title style={{ textAlign: 'center' }}>Đăng ký</Title>
-					<Form name="regster" onFinish={onFinish}>
-						<Form.Item name="name" label="Họ tên" rules={[{ required: true, message: 'Xin hãy nhập họ tên!' }]}>
+				<Col xs={24} sm={12} md={10} lg={8} xl={6}>
+					<Title style={{ textAlign: 'center' }}>Sign Up</Title>
+					{alert && <Alert message={alert} type="error" showIcon closable />}
+					<Form layout="vertical" name="regster" onFinish={onFinish} style={{ marginTop: '30px ' }}>
+						<Form.Item name="name" label="Name" rules={[{ required: true, message: 'Please input your name!' }]}>
 							<Input />
 						</Form.Item>
 						<Form.Item
 							name="email"
 							label="E-mail"
 							rules={[
-								{ type: 'email', message: 'Email không hợp lệ' },
-								{ required: true, message: 'Xin hãy nhập email!' },
-							]}
-							hasFeedback>
+								{
+									type: 'email',
+									message: 'The input is not valid E-mail!',
+								},
+								{
+									required: true,
+									message: 'Please input your E-mail!',
+								},
+							]}>
 							<Input />
 						</Form.Item>
-						<Form.Item name="password" label="Mật khẩu" rules={[{ required: true, message: 'Xin hãy nhập mật khẩu!' }]}>
+						<Form.Item
+							name="password"
+							label="Password"
+							rules={[
+								{
+									required: true,
+									message: 'Please input your password!',
+								},
+							]}
+							hasFeedback>
 							<Input.Password />
 						</Form.Item>
 						<Form.Item
 							name="confirm"
-							label="Xác nhận mật khẩu"
+							label="Confirm Password"
 							dependencies={['password']}
 							hasFeedback
 							rules={[
-								{ required: true, message: 'Xin xác nhận lại mật khẩu!' },
-								//@ts-ignore
+								{
+									required: true,
+									message: 'Please confirm your password!',
+								},
 								({ getFieldValue }) => ({
 									validator(_, value) {
 										if (!value || getFieldValue('password') === value) {
 											return Promise.resolve();
 										}
-										return Promise.reject(new Error('Mật khẩu xác nhận không chính xác!'));
+										return Promise.reject(new Error('The two passwords that you entered do not match!'));
 									},
 								}),
 							]}>
-							<Input.Password />{' '}
+							<Input.Password />
 						</Form.Item>
 						<Form.Item>
 							<Button disabled={isFetching} type="primary" htmlType="submit" className="login-form-button">
-								Đăng ký
+								Sign up
 							</Button>{' '}
-							Hoặc <Link to="/signin">đăng nhập!</Link>
+							Or <Link to="/signin">sign in now!</Link>
 						</Form.Item>
 					</Form>
 				</Col>

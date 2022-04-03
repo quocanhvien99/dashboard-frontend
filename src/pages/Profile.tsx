@@ -91,7 +91,11 @@ export default function Profile() {
 				<>
 					<div className={SC.userInfo}>
 						<div className={SC.content}>
-							<Avatar className={SC.avatar} size={100} icon={<UserOutlined />} src={userInfo.profile_pic}></Avatar>
+							<Avatar
+								className={SC.avatar}
+								size={100}
+								icon={<UserOutlined />}
+								src={'http://localhost:9000' + userInfo.profile_pic}></Avatar>
 							<div className={SC.center}>
 								<p className={SC.name}>{userInfo.name}</p>
 								<p className={SC.role}>{userInfo.role}</p>

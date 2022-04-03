@@ -103,7 +103,7 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 					})}
 					<div ref={ref} className="user-management">
 						<div onClick={() => setCollapsedUser(!collapsedUser)}>
-							<Avatar icon={<UserOutlined />} src={(userInfo as userType).profile_pic} />
+							<Avatar icon={<UserOutlined />} src={'http://localhost:9000' + (userInfo as userType).profile_pic} />
 							<DownOutlined
 								style={{ fontSize: 'small', marginLeft: '5px', color: '#18AEFB', transition: 'all 0.5s' }}
 								className={collapsedUser ? 'collapsed' : ''}
@@ -111,7 +111,10 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 						</div>
 						<ul className="drop-down" style={{ display: collapsedUser ? 'block' : 'none' }}>
 							<li>
-								<Avatar size="large" icon={<UserOutlined />} src={(userInfo as userType).profile_pic}></Avatar>
+								<Avatar
+									size="large"
+									icon={<UserOutlined />}
+									src={'http://localhost:9000' + (userInfo as userType).profile_pic}></Avatar>
 								<div>
 									<span className="name">{userInfo.name}</span>
 									<br />
@@ -131,7 +134,7 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 						padding: 24,
 						minHeight: 280,
 					}}>
-					<Title>{title}</Title>
+					<Title style={{ textTransform: 'capitalize' }}>{title}</Title>
 					<Breadcrumb className="breadcrumb">
 						{breadcrumb.map((x, i) => (
 							<Breadcrumb.Item key={i}>
