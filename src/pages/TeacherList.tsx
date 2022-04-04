@@ -7,7 +7,7 @@ import SC from './List.module.scss';
 import { getUserList, removeUser } from '../api';
 import { useNavigate } from 'react-router-dom';
 
-export default function StudentList() {
+export default function TeacherList() {
 	const navigate = useNavigate();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
@@ -67,10 +67,7 @@ export default function StudentList() {
 	const editHandle = (id: string) => {
 		navigate('/users/edit/' + id);
 	};
-	const removeHandle = (id: string) => {
-		setIsModalVisible(true);
-		setCurrentUid(id);
-	};
+	const removeHandle = (id: string) => {};
 	const tableChange = (pagination: any, filters: any, sorter: any) => {
 		setSkip(pagination.current * limit - limit);
 		if (sorter.hasOwnProperty('column')) {
@@ -92,7 +89,7 @@ export default function StudentList() {
 			.then((res) => {
 				notification['success']({
 					message: 'Success',
-					description: 'Student information has been removed',
+					description: 'Teacher information has been removed',
 				});
 				setTriggleReload(!triggleReload);
 			})
@@ -108,7 +105,7 @@ export default function StudentList() {
 	};
 
 	useEffect(() => {
-		let params: any = { skip, limit, role: 'student' };
+		let params: any = { skip, limit, role: 'teacher' };
 		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
@@ -124,10 +121,10 @@ export default function StudentList() {
 				<title>Student List</title>
 			</Helmet>
 			<Layout
-				title="Student List"
+				title="Teacher List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
-					{ title: 'Students', to: '/students' },
+					{ title: 'Teachers', to: '/teachers' },
 				]}>
 				<>
 					<div className={SC.Card}>
@@ -156,7 +153,7 @@ export default function StudentList() {
 						columns={columns}
 					/>
 					<Modal title="Confirm" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-						Are you sure want to delete this student information?
+						Are you sure want to delete this teacher information?
 					</Modal>
 				</>
 			</Layout>

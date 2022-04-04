@@ -6,6 +6,13 @@ import Profile from '../pages/Profile';
 import StudentList from '../pages/StudentList';
 import StudentAdd from '../pages/StudentAdd';
 import TeacherAdd from '../pages/TeacherAdd';
+import DepartmentAdd from '../pages/DepartmentAdd';
+import UserEdit from '../pages/UserEdit';
+import TeacherList from '../pages/TeacherList';
+import DepartmentList from '../pages/DepartmentList';
+import DepartmentEdit from '../pages/DepartmentEdit';
+import SubjectAdd from '../pages/SubjectAdd';
+import SubjectList from '../pages/SubjectList';
 
 const routes = [
 	{
@@ -49,10 +56,66 @@ const routes = [
 		),
 	},
 	{
+		path: '/teachers',
+		element: (
+			<ProtectedRoute>
+				<TeacherList />
+			</ProtectedRoute>
+		),
+	},
+	{
 		path: '/teachers/add',
 		element: (
 			<ProtectedRoute>
 				<TeacherAdd />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/department',
+		element: (
+			<ProtectedRoute>
+				<DepartmentList />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/department/add',
+		element: (
+			<ProtectedRoute>
+				<DepartmentAdd />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/department/edit/:uid',
+		element: (
+			<ProtectedRoute>
+				<DepartmentEdit />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/users/edit/:uid',
+		element: (
+			<ProtectedRoute>
+				<UserEdit />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/subject/add',
+		element: (
+			<ProtectedRoute>
+				<SubjectAdd />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/subject/',
+		element: (
+			<ProtectedRoute>
+				<SubjectList />
 			</ProtectedRoute>
 		),
 	},

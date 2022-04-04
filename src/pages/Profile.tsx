@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { userType } from '../slices/user';
 import SC from './Profile.module.scss';
-import { changePassword as changePassApi, editProfile, getNewUserInfo } from '../api';
+import { changePassword as changePassApi, editProfile, getUserInfo } from '../api';
 import { update as updateAction } from '../slices/user';
 
 export default function Profile() {
@@ -41,7 +41,7 @@ export default function Profile() {
 					message: 'success',
 					description: 'successful',
 				});
-				getNewUserInfo(userInfo.id).then((res) => dispatch(updateAction(res)));
+				getUserInfo(userInfo.id).then((res) => dispatch(updateAction(res)));
 				setIsModalVisible(false);
 			})
 			.catch((err) => {

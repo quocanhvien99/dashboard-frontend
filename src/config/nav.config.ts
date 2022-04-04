@@ -22,8 +22,8 @@ const nav: { [key: string]: any } = {
 		{
 			title: 'department',
 			submenu: [
-				{ title: 'department list', to: '/departments' },
-				{ title: 'department add', to: '/departments/add' },
+				{ title: 'department list', to: '/department' },
+				{ title: 'department add', to: '/department/add' },
 			],
 			icon: UserOutlined,
 		},

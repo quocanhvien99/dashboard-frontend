@@ -59,3 +59,30 @@ input[type='file'] {
 		background: #18aefa;
 	}
 }
+.search {
+	ul {
+		opacity: 0;
+		visibility: hidden;
+		list-style-type: none;
+		position: absolute;
+		border: 1px solid #ddd;
+		background: #fff;
+		width: 100%;
+		top: 100%;
+		padding: 0;
+		transition: all 0.5s;
+		&.show {
+			opacity: 1;
+			visibility: visible;
+		}
+		li {
+			cursor: pointer;
+			padding: 10px;
+			font-size: 16px;
+			&:hover {
+				background-color: #18aefa;
+				color: #fff;
+			}
+		}
+	}
+}

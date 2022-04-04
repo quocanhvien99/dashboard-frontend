@@ -1,31 +1,31 @@
-import React, { ChangeEvent, FocusEvent, FormEventHandler, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEventHandler, FocusEvent, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import Card1 from '../components/Card1';
 import Layout from '../components/Layout';
 import '../components/Form.scss';
-import { Col, notification } from 'antd';
-import { addDepartment, searchUser } from '../api';
-import SC from '../components/Card1.module.scss';
+import { Col, notification, Row } from 'antd';
+import { editDepartment, editProfile, getDepartmentInfo, getUserInfo, searchUser } from '../api';
+import { useParams } from 'react-router-dom';
 
-export default function DepartmentAdd() {
-	const [searchResult, setSearchResult] = useState<any[]>([]);
+export default function DepartmentList() {
+	const { did } = useParams();
 	const [dhead, setDhead] = useState('');
 	const [dheadId, setDheadId] = useState('');
 	const [dname, setDname] = useState('');
 	const [toggle, setToggle] = useState(false);
+	const [searchResult, setSearchResult] = useState<any[]>([]);
 
 	const submit: FormEventHandler = (e) => {
 		e.preventDefault();
 
-		if (!searchResult.length)
+		if (!searchResult.length && dhead)
 			return notification['error']({
 				message: 'Error',
 				description: 'User does not exist!',
 			});
-		let dhead_id: string;
-		if (!dheadId) dhead_id = searchResult[0].id;
-		else dhead_id = dheadId;
-		addDepartment(dname, dhead_id)
+		let dHeadId = '';
+		if (dhead) dHeadId = dheadId;
+		editDepartment(parseInt(did as string), dname, dHeadId)
 			.then((res) =>
 				notification['success']({
 					message: 'Success',
@@ -39,6 +39,13 @@ export default function DepartmentAdd() {
 				})
 			);
 	};
+	useEffect(() => {
+		getDepartmentInfo(parseInt(did as string)).then((res: any) => {
+			setDhead(res.dhead);
+			setDname(res.dname);
+			setDheadId(res.dhead_id);
+		});
+	}, []);
 
 	const timeOutId = useRef<number>();
 	const onChangeDhead = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,14 +70,13 @@ export default function DepartmentAdd() {
 	return (
 		<>
 			<Helmet>
-				<title>Add Department</title>
+				<title>Edit Department</title>
 			</Helmet>
 			<Layout
-				title="add department"
+				title="edit departments"
 				breadcrumb={[
-					{ title: 'Dashboard', to: '/' },
-					{ title: 'Department', to: '/department/' },
-					{ title: 'Add', to: '/department/add' },
+					{ title: 'Departments', to: '/department/' },
+					{ title: 'Edit', to: `/department/edit/${did}` },
 				]}>
 				<Card1>
 					<form onSubmit={submit}>

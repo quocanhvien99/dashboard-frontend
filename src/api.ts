@@ -44,7 +44,7 @@ export function editProfile(uid: number, data: FormData) {
 			.catch((err) => reject(err.response.data));
 	});
 }
-export function getNewUserInfo(uid: number) {
+export function getUserInfo(uid: number) {
 	return new Promise((resolve, reject) => {
 		instance
 			.get(`/user/${uid}`)
@@ -65,6 +65,14 @@ export function addUser(data: FormData, role: 'admin' | 'teacher' | 'student') {
 			.catch((err) => reject(err.response.data.msg));
 	});
 }
+export function removeUser(uid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/user/${uid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
 export function addTeacher(data: FormData) {
 	return new Promise((resolve, reject) => {
 		data.append('role', 'teacher');
@@ -74,6 +82,87 @@ export function addTeacher(data: FormData) {
 					'content-type': 'multipart/form-data',
 				},
 			})
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function searchUser(role?: string, skip?: number, limit?: number, s?: string) {
+	let params: any = {};
+	if (role) params.role = role;
+	if (skip) params.skip = skip;
+	if (limit) params.limit = limit;
+	if (s) params.s = s;
+
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/user/`, {
+				params,
+			})
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getUserList(params: any) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/user/`, { params })
+			.then((res) => {
+				let data = res.data.map((x: any) => {
+					const date = new Date(x.dob);
+					x.dob = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+					return x;
+				});
+				resolve(data);
+			})
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function addDepartment(dname: string, dhead_id: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/department/`, { dname, dhead_id })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getDepartmentList(params: any) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/department/`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getDepartmentInfo(did: number) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/department/${did}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data));
+	});
+}
+export function removeDepartment(did: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/department/${did}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function editDepartment(did: number, dname: string, dhead_id: string) {
+	const data: any = { dname };
+	if (dhead_id) data.dhead_id = dhead_id;
+	return new Promise((resolve, reject) => {
+		instance
+			.put(`/department/${did}`, data)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data));
+	});
+}
+export function addSubject(sid: string, sname: string, did: number) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/subject/`, { id: sid, name: sname, did })
 			.then((res) => resolve(res.data))
 			.catch((err) => reject(err.response.data.msg));
 	});

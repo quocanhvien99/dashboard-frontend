@@ -3,10 +3,48 @@
 	margin-top: 20px;
 	border: 1px solid #ddd;
 	border-radius: 5px;
-	.title {
-		font-size: x-large;
-		font-weight: 500;
-		text-transform: capitalize;
-		margin: 0 0 20px 0;
+	display: flex;
+	justify-content: space-between;
+	> div {
+		margin-bottom: 10px;
+	}
+}
+.Search {
+	width: 30%;
+	display: flex;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	input {
+		margin: 0;
+		border: none;
+		&:focus {
+			border: none;
+		}
+	}
+	button {
+		border: none;
+		color: #ccc;
+		background: transparent;
+		cursor: pointer;
+	}
+}
+.remove,
+.edit {
+	padding: 3px;
+	color: #fff;
+	border-radius: 5px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+.remove {
+	background-color: #ffbc53;
+}
+.edit {
+	background-color: #18aefa;
+}
+
+@media screen and (max-width: 576px) {
+	.Card {
+		flex-direction: column;
 	}
 }

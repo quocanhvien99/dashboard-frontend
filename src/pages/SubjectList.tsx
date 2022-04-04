@@ -37,16 +37,6 @@ export default function StudentList() {
 			sorter: true,
 		},
 		{
-			title: 'Mobile Number',
-			dataIndex: 'phone',
-			sorter: true,
-		},
-		{
-			title: 'Address',
-			dataIndex: 'address',
-			sorter: true,
-		},
-		{
 			title: 'Action',
 			key: 'action',
 			render: (text: any, record: any) => (
