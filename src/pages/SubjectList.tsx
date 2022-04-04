@@ -4,10 +4,10 @@ import { Helmet } from 'react-helmet';
 import { SearchOutlined } from '@ant-design/icons';
 import Layout from '../components/Layout';
 import SC from './List.module.scss';
-import { getUserList, removeUser } from '../api';
+import { getSubjectList, removeSubject } from '../api';
 import { useNavigate } from 'react-router-dom';
 
-export default function StudentList() {
+export default function SubjectList() {
 	const navigate = useNavigate();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
@@ -17,8 +17,8 @@ export default function StudentList() {
 	const [orderBy, setOrderBy] = useState('');
 	const [sortBy, setSortBy] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [currentUid, setCurrentUid] = useState('');
-	const [triggleReload, setTriggleReload] = useState(false);
+	const [currentSid, setCurrentSid] = useState('');
+	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
 		{
@@ -32,8 +32,8 @@ export default function StudentList() {
 			sorter: true,
 		},
 		{
-			title: 'DOB',
-			dataIndex: 'dob',
+			title: 'Department',
+			dataIndex: 'dname',
 			sorter: true,
 		},
 		{
@@ -41,6 +41,10 @@ export default function StudentList() {
 			key: 'action',
 			render: (text: any, record: any) => (
 				<>
+					<span className={`material-icons-outlined ${SC.view}`} onClick={(e) => navigate('/subject/' + record.id)}>
+						{' '}
+						visibility{' '}
+					</span>
 					<span className={`material-icons-outlined ${SC.edit}`} onClick={(e) => editHandle(record.id)}>
 						{' '}
 						edit{' '}
@@ -55,11 +59,11 @@ export default function StudentList() {
 	];
 
 	const editHandle = (id: string) => {
-		navigate('/users/edit/' + id);
+		navigate('/subject/edit/' + id);
 	};
 	const removeHandle = (id: string) => {
 		setIsModalVisible(true);
-		setCurrentUid(id);
+		setCurrentSid(id);
 	};
 	const tableChange = (pagination: any, filters: any, sorter: any) => {
 		setSkip(pagination.current * limit - limit);
@@ -77,14 +81,14 @@ export default function StudentList() {
 	};
 	const handleOk = () => {
 		setIsModalVisible(false);
-		setCurrentUid('');
-		removeUser(currentUid)
+		setCurrentSid('');
+		removeSubject(currentSid)
 			.then((res) => {
 				notification['success']({
 					message: 'Success',
-					description: 'Student information has been removed',
+					description: 'Subject has been removed',
 				});
-				setTriggleReload(!triggleReload);
+				setTriggerReload(!triggerReload);
 			})
 			.catch((err) =>
 				notification['error']({
@@ -98,26 +102,26 @@ export default function StudentList() {
 	};
 
 	useEffect(() => {
-		let params: any = { skip, limit, role: 'student' };
+		let params: any = { skip, limit };
 		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
-		getUserList(params).then((res: any) => {
+		getSubjectList(params).then((res: any) => {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggleReload]);
+	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
 
 	return (
 		<>
 			<Helmet>
-				<title>Student List</title>
+				<title>Subject List</title>
 			</Helmet>
 			<Layout
-				title="Student List"
+				title="Subject List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
-					{ title: 'Students', to: '/students' },
+					{ title: 'Subjects', to: '/subjects' },
 				]}>
 				<>
 					<div className={SC.Card}>
@@ -139,14 +143,17 @@ export default function StudentList() {
 							<input type="text" name="search" id="search" value={s} onChange={(e) => setS(e.currentTarget.value)} />
 						</form>
 					</div>
-					<Table
-						onChange={tableChange}
-						pagination={{ total: total, pageSize: limit }}
-						dataSource={dataSource}
-						columns={columns}
-					/>
+					<div className={SC.table}>
+						<Table
+							onChange={tableChange}
+							pagination={{ total: total, pageSize: limit }}
+							dataSource={dataSource}
+							columns={columns}
+							sticky
+						/>
+					</div>
 					<Modal title="Confirm" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-						Are you sure want to delete this student information?
+						Are you sure want to delete this subject?
 					</Modal>
 				</>
 			</Layout>

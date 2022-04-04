@@ -1,18 +1,19 @@
-import React, { ChangeEvent, FocusEvent, FormEventHandler, useEffect, useRef, useState } from 'react';
+import { Col, notification } from 'antd';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
+import { editSubject, getDepartmentList, getSubjectInfo } from '../api';
 import Card1 from '../components/Card1';
 import Layout from '../components/Layout';
-import '../components/Form.scss';
-import { Col, notification } from 'antd';
-import { addSubject, getDepartmentList } from '../api';
 
-export default function SubjectAdd() {
+export default function SubjectEdit() {
+	const { id } = useParams();
 	const [listDepartment, setListDepartment] = useState([]);
-
+	const [initValue, setInit] = useState<any>({});
 	const submit: FormEventHandler = (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget as HTMLFormElement);
-		addSubject(formData.get('id'), formData.get('name'), formData.get('did'))
+		editSubject(id as string, formData.get('name'), formData.get('did'))
 			.then((res) =>
 				notification['success']({
 					message: 'Success',
@@ -26,41 +27,38 @@ export default function SubjectAdd() {
 				})
 			);
 	};
-
 	useEffect(() => {
 		getDepartmentList({}).then((res: any) => {
 			setListDepartment(res);
 		});
+		getSubjectInfo(id as string).then((res) => setInit(res));
 	}, []);
 
 	return (
 		<>
 			<Helmet>
-				<title>Add Subject</title>
+				<title>Edit Subject</title>
 			</Helmet>
 			<Layout
-				title="add subject"
+				title="edit subjects"
 				breadcrumb={[
-					{ title: 'Dashboard', to: '/' },
-					{ title: 'Subject', to: '/subject/' },
-					{ title: 'Add', to: '/subject/add' },
+					{ title: 'Subjects', to: '/subject/' },
+					{ title: 'Edit', to: `/subject/edit/${id}` },
 				]}>
 				<Card1>
 					<form onSubmit={submit}>
 						<Col xs={24} sm={12}>
-							<label htmlFor="id">Subject ID</label>
-							<input type="text" name="id" id="id" required />
-						</Col>
-						<Col xs={24} sm={12}>
 							<label htmlFor="name">Subject Name</label>
-							<input type="text" name="name" id="name" required />
+							<input type="text" name="name" id="name" required defaultValue={initValue.name} />
 						</Col>
 						<Col xs={24} sm={12}>
 							<label htmlFor="did">Department Name</label>
 							<div className="select-custom">
 								<select name="did" id="did">
 									{listDepartment.map((x: any) => (
-										<option value={x.id}>{x.dname}</option>
+										<option value={x.id} selected={x.dname === initValue.dname}>
+											{x.dname}
+										</option>
 									))}
 								</select>
 								<span className="material-icons-outlined"> arrow_drop_down </span>

@@ -18,7 +18,7 @@ export default function TeacherList() {
 	const [sortBy, setSortBy] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [currentUid, setCurrentUid] = useState('');
-	const [triggleReload, setTriggleReload] = useState(false);
+	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
 		{
@@ -91,7 +91,7 @@ export default function TeacherList() {
 					message: 'Success',
 					description: 'Teacher information has been removed',
 				});
-				setTriggleReload(!triggleReload);
+				setTriggerReload(!triggerReload);
 			})
 			.catch((err) =>
 				notification['error']({
@@ -113,7 +113,7 @@ export default function TeacherList() {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggleReload]);
+	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
 
 	return (
 		<>
@@ -146,12 +146,15 @@ export default function TeacherList() {
 							<input type="text" name="search" id="search" value={s} onChange={(e) => setS(e.currentTarget.value)} />
 						</form>
 					</div>
-					<Table
-						onChange={tableChange}
-						pagination={{ total: total, pageSize: limit }}
-						dataSource={dataSource}
-						columns={columns}
-					/>
+					<div className={SC.table}>
+						<Table
+							onChange={tableChange}
+							pagination={{ total: total, pageSize: limit }}
+							dataSource={dataSource}
+							columns={columns}
+							sticky
+						/>
+					</div>
 					<Modal title="Confirm" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
 						Are you sure want to delete this teacher information?
 					</Modal>

@@ -13,6 +13,9 @@ import DepartmentList from '../pages/DepartmentList';
 import DepartmentEdit from '../pages/DepartmentEdit';
 import SubjectAdd from '../pages/SubjectAdd';
 import SubjectList from '../pages/SubjectList';
+import SubjectEdit from '../pages/SubjectEdit';
+import Class from '../pages/Class';
+import SubjectView from '../pages/SubjectView';
 
 const routes = [
 	{
@@ -116,6 +119,30 @@ const routes = [
 		element: (
 			<ProtectedRoute>
 				<SubjectList />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/subject/edit/:id',
+		element: (
+			<ProtectedRoute>
+				<SubjectEdit />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/subject/:id',
+		element: (
+			<ProtectedRoute>
+				<SubjectView />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/class',
+		element: (
+			<ProtectedRoute>
+				<Class />
 			</ProtectedRoute>
 		),
 	},

@@ -4,10 +4,10 @@ import { Helmet } from 'react-helmet';
 import { SearchOutlined } from '@ant-design/icons';
 import Layout from '../components/Layout';
 import SC from './List.module.scss';
-import { getUserList, removeUser } from '../api';
+import { getDepartmentList, removeDepartment } from '../api';
 import { useNavigate } from 'react-router-dom';
 
-export default function StudentList() {
+export default function Class() {
 	const navigate = useNavigate();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
@@ -17,7 +17,7 @@ export default function StudentList() {
 	const [orderBy, setOrderBy] = useState('');
 	const [sortBy, setSortBy] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [currentUid, setCurrentUid] = useState('');
+	const [currentDid, setCurrentDid] = useState('');
 	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
@@ -28,22 +28,12 @@ export default function StudentList() {
 		},
 		{
 			title: 'Name',
-			dataIndex: 'name',
+			dataIndex: 'dname',
 			sorter: true,
 		},
 		{
-			title: 'DOB',
-			dataIndex: 'dob',
-			sorter: true,
-		},
-		{
-			title: 'Mobile Number',
-			dataIndex: 'phone',
-			sorter: true,
-		},
-		{
-			title: 'Address',
-			dataIndex: 'address',
+			title: 'HOD',
+			dataIndex: 'dhead',
 			sorter: true,
 		},
 		{
@@ -65,11 +55,11 @@ export default function StudentList() {
 	];
 
 	const editHandle = (id: string) => {
-		navigate('/users/edit/' + id);
+		navigate('/department/edit/' + id);
 	};
 	const removeHandle = (id: string) => {
 		setIsModalVisible(true);
-		setCurrentUid(id);
+		setCurrentDid(id);
 	};
 	const tableChange = (pagination: any, filters: any, sorter: any) => {
 		setSkip(pagination.current * limit - limit);
@@ -87,12 +77,12 @@ export default function StudentList() {
 	};
 	const handleOk = () => {
 		setIsModalVisible(false);
-		setCurrentUid('');
-		removeUser(currentUid)
+		setCurrentDid('');
+		removeDepartment(currentDid)
 			.then((res) => {
 				notification['success']({
 					message: 'Success',
-					description: 'Student information has been removed',
+					description: 'Department has been removed',
 				});
 				setTriggerReload(!triggerReload);
 			})
@@ -108,11 +98,11 @@ export default function StudentList() {
 	};
 
 	useEffect(() => {
-		let params: any = { skip, limit, role: 'student' };
+		let params: any = { skip, limit };
 		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
-		getUserList(params).then((res: any) => {
+		getDepartmentList(params).then((res: any) => {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
@@ -121,13 +111,13 @@ export default function StudentList() {
 	return (
 		<>
 			<Helmet>
-				<title>Student List</title>
+				<title>Department List</title>
 			</Helmet>
 			<Layout
-				title="Student List"
+				title="Department List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
-					{ title: 'Students', to: '/students' },
+					{ title: 'Departments', to: '/departments' },
 				]}>
 				<>
 					<div className={SC.Card}>
@@ -149,17 +139,14 @@ export default function StudentList() {
 							<input type="text" name="search" id="search" value={s} onChange={(e) => setS(e.currentTarget.value)} />
 						</form>
 					</div>
-					<div className={SC.table}>
-						<Table
-							onChange={tableChange}
-							pagination={{ total: total, pageSize: limit }}
-							dataSource={dataSource}
-							columns={columns}
-							sticky
-						/>
-					</div>
+					<Table
+						onChange={tableChange}
+						pagination={{ total: total, pageSize: limit }}
+						dataSource={dataSource}
+						columns={columns}
+					/>
 					<Modal title="Confirm" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-						Are you sure want to delete this student information?
+						Are you sure want to delete this department information?
 					</Modal>
 				</>
 			</Layout>

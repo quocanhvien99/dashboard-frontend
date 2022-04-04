@@ -159,11 +159,51 @@ export function editDepartment(did: number, dname: string, dhead_id: string) {
 			.catch((err) => reject(err.response.data));
 	});
 }
-export function addSubject(sid: string, sname: string, did: number) {
+export function addSubject(
+	id: FormDataEntryValue | null,
+	name: FormDataEntryValue | null,
+	did: FormDataEntryValue | null
+) {
 	return new Promise((resolve, reject) => {
 		instance
-			.post(`/subject/`, { id: sid, name: sname, did })
+			.post(`/subject/`, { id, name, did })
 			.then((res) => resolve(res.data))
 			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getSubjectList(params: any) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/subject/`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getSubjectInfo(sid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/subject/${sid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data));
+	});
+}
+export function removeSubject(sid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/subject/${sid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function editSubject(
+	sid: FormDataEntryValue | null,
+	name: FormDataEntryValue | null,
+	did: FormDataEntryValue | null
+) {
+	return new Promise((resolve, reject) => {
+		instance
+			.put(`/subject/${sid}`, { name, did })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data));
 	});
 }

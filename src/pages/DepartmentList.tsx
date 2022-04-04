@@ -18,7 +18,7 @@ export default function DepartmentList() {
 	const [sortBy, setSortBy] = useState('');
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [currentDid, setCurrentDid] = useState('');
-	const [triggleReload, setTriggleReload] = useState(false);
+	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
 		{
@@ -84,7 +84,7 @@ export default function DepartmentList() {
 					message: 'Success',
 					description: 'Department has been removed',
 				});
-				setTriggleReload(!triggleReload);
+				setTriggerReload(!triggerReload);
 			})
 			.catch((err) =>
 				notification['error']({
@@ -106,7 +106,7 @@ export default function DepartmentList() {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggleReload]);
+	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
 
 	return (
 		<>

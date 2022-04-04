@@ -44,14 +44,11 @@ const nav: { [key: string]: any } = {
 		},
 		{
 			title: 'classes',
-			submenu: [
-				{ title: 'class list', to: '/class' },
-				{ title: 'class add', to: '/class/add' },
-			],
+			to: '/class',
 			icon: UserOutlined,
 		},
 		{
-			title: 'schedule',
+			title: 'schedules',
 			to: '/schedule',
 			icon: UserOutlined,
 		},

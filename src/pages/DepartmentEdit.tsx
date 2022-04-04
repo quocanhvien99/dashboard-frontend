@@ -7,7 +7,7 @@ import { Col, notification, Row } from 'antd';
 import { editDepartment, editProfile, getDepartmentInfo, getUserInfo, searchUser } from '../api';
 import { useParams } from 'react-router-dom';
 
-export default function DepartmentList() {
+export default function DepartmentEdit() {
 	const { did } = useParams();
 	const [dhead, setDhead] = useState('');
 	const [dheadId, setDheadId] = useState('');
