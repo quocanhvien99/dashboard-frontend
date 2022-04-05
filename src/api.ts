@@ -207,3 +207,92 @@ export function editSubject(
 			.catch((err) => reject(err.response.data));
 	});
 }
+export function getClassList(params: any) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/class/`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function removeClass(cid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/class/${cid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function addClass(sid: string, teacher_id: string, semester: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/class/`, { sid, teacher_id, semester })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function removeMember(cid: string, sid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/class/${cid}/member/${sid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getClassMemberList(params: any, cid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/class/${cid}/member`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function addMember(cid: string, sid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/class/${cid}/member`, { sid })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getTimeList(params: any, cid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/class/${cid}/time`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function addTime(cid: string, start: string, end: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/class/${cid}/time`, { start, end })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function removeTime(cid: string, tid: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.delete(`/class/${cid}/time/${tid}`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getScoreList(params: any, cid: string) {
+	return new Promise((resolve, reject) => {
+		params.cid = cid;
+		instance
+			.get(`/score`, { params })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function updateScore(cid: string, uid: string, score: number) {
+	return new Promise((resolve, reject) => {
+		instance
+			.put(`/score`, { cid, uid, score })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}

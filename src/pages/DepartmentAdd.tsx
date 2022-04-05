@@ -50,7 +50,6 @@ export default function DepartmentAdd() {
 		//@ts-ignore:next-line
 		timeOutId.current = setTimeout(() => {
 			searchUser('teacher', 0, 5, dhead).then((res: any) => {
-				console.log(res);
 				setSearchResult(res);
 			});
 		}, 1000);

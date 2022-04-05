@@ -67,7 +67,10 @@ export default function TeacherList() {
 	const editHandle = (id: string) => {
 		navigate('/users/edit/' + id);
 	};
-	const removeHandle = (id: string) => {};
+	const removeHandle = (id: string) => {
+		setIsModalVisible(true);
+		setCurrentUid(id);
+	};
 	const tableChange = (pagination: any, filters: any, sorter: any) => {
 		setSkip(pagination.current * limit - limit);
 		if (sorter.hasOwnProperty('column')) {

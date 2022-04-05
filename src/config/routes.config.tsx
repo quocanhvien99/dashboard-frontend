@@ -16,6 +16,7 @@ import SubjectList from '../pages/SubjectList';
 import SubjectEdit from '../pages/SubjectEdit';
 import Class from '../pages/Class';
 import SubjectView from '../pages/SubjectView';
+import ClassView from '../pages/ClassView';
 
 const routes = [
 	{
@@ -143,6 +144,14 @@ const routes = [
 		element: (
 			<ProtectedRoute>
 				<Class />
+			</ProtectedRoute>
+		),
+	},
+	{
+		path: '/class/:id',
+		element: (
+			<ProtectedRoute>
+				<ClassView />
 			</ProtectedRoute>
 		),
 	},

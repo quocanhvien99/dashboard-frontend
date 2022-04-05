@@ -4,20 +4,17 @@ import { Helmet } from 'react-helmet';
 import { SearchOutlined } from '@ant-design/icons';
 import Layout from '../components/Layout';
 import SC from './List.module.scss';
-import { getDepartmentList, removeDepartment } from '../api';
+import { getClassList, getDepartmentList, removeDepartment } from '../api';
 import { useNavigate } from 'react-router-dom';
 
 export default function Class() {
 	const navigate = useNavigate();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
-	const [s, setS] = useState('');
 	const [total, setTotal] = useState(0);
 	const [dataSource, setDataSource] = useState([]);
 	const [orderBy, setOrderBy] = useState('');
 	const [sortBy, setSortBy] = useState('');
-	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [currentDid, setCurrentDid] = useState('');
 	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
@@ -27,13 +24,18 @@ export default function Class() {
 			sorter: true,
 		},
 		{
-			title: 'Name',
+			title: 'Subject',
+			dataIndex: 'sname',
+			sorter: true,
+		},
+		{
+			title: 'Department',
 			dataIndex: 'dname',
 			sorter: true,
 		},
 		{
-			title: 'HOD',
-			dataIndex: 'dhead',
+			title: 'Semester',
+			dataIndex: 'semester',
 			sorter: true,
 		},
 		{
@@ -41,26 +43,15 @@ export default function Class() {
 			key: 'action',
 			render: (text: any, record: any) => (
 				<>
-					<span className={`material-icons-outlined ${SC.edit}`} onClick={(e) => editHandle(record.id)}>
+					<span className={`material-icons-outlined ${SC.view}`} onClick={(e) => navigate('/class/' + record.id)}>
 						{' '}
-						edit{' '}
-					</span>
-					<span className={`material-icons-outlined ${SC.remove}`} onClick={(e) => removeHandle(record.id)}>
-						{' '}
-						delete{' '}
+						visibility{' '}
 					</span>
 				</>
 			),
 		},
 	];
 
-	const editHandle = (id: string) => {
-		navigate('/department/edit/' + id);
-	};
-	const removeHandle = (id: string) => {
-		setIsModalVisible(true);
-		setCurrentDid(id);
-	};
 	const tableChange = (pagination: any, filters: any, sorter: any) => {
 		setSkip(pagination.current * limit - limit);
 		if (sorter.hasOwnProperty('column')) {
@@ -75,49 +66,27 @@ export default function Class() {
 			setSortBy(sorter.field);
 		}
 	};
-	const handleOk = () => {
-		setIsModalVisible(false);
-		setCurrentDid('');
-		removeDepartment(currentDid)
-			.then((res) => {
-				notification['success']({
-					message: 'Success',
-					description: 'Department has been removed',
-				});
-				setTriggerReload(!triggerReload);
-			})
-			.catch((err) =>
-				notification['error']({
-					message: 'Error',
-					description: err,
-				})
-			);
-	};
-	const handleCancel = () => {
-		setIsModalVisible(false);
-	};
 
 	useEffect(() => {
 		let params: any = { skip, limit };
-		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
-		getDepartmentList(params).then((res: any) => {
+		getClassList(params).then((res: any) => {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
+	}, [limit, skip, orderBy, sortBy, triggerReload]);
 
 	return (
 		<>
 			<Helmet>
-				<title>Department List</title>
+				<title>Class List</title>
 			</Helmet>
 			<Layout
-				title="Department List"
+				title="Class List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
-					{ title: 'Departments', to: '/departments' },
+					{ title: 'Classes', to: '/class' },
 				]}>
 				<>
 					<div className={SC.Card}>
@@ -132,12 +101,6 @@ export default function Class() {
 							</Select>{' '}
 							entries
 						</div>
-						<form className={SC.Search}>
-							<button>
-								<SearchOutlined />
-							</button>
-							<input type="text" name="search" id="search" value={s} onChange={(e) => setS(e.currentTarget.value)} />
-						</form>
 					</div>
 					<Table
 						onChange={tableChange}
@@ -145,9 +108,6 @@ export default function Class() {
 						dataSource={dataSource}
 						columns={columns}
 					/>
-					<Modal title="Confirm" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-						Are you sure want to delete this department information?
-					</Modal>
 				</>
 			</Layout>
 		</>
