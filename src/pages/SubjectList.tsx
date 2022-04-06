@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import { getSubjectList, removeSubject } from '../api';
 import { useNavigate } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function SubjectList() {
 	const navigate = useNavigate();
@@ -117,7 +118,7 @@ export default function SubjectList() {
 			<Helmet>
 				<title>Subject List</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Subject List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -156,7 +157,7 @@ export default function SubjectList() {
 						Are you sure want to delete this subject?
 					</Modal>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

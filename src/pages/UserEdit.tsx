@@ -6,6 +6,7 @@ import '../components/Form.scss';
 import { Col, notification, Row } from 'antd';
 import { editProfile, getUserInfo } from '../api';
 import { useParams } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function UserEdit() {
 	const { uid } = useParams();
@@ -41,7 +42,7 @@ export default function UserEdit() {
 			<Helmet>
 				<title>Edit User</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="edit users"
 				breadcrumb={[
 					{ title: 'Users', to: '/users/' },
@@ -124,7 +125,7 @@ export default function UserEdit() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

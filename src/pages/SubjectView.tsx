@@ -7,6 +7,7 @@ import Card1 from '../components/Card1';
 import { addClass, getClassList, getSubjectInfo, removeClass, searchUser } from '../api';
 import { Modal, notification, Select, Table } from 'antd';
 import AutoComplete from '../components/AutoComplete';
+import Body from '../components/Body';
 
 export default function SubjectView() {
 	const { id } = useParams();
@@ -126,7 +127,7 @@ export default function SubjectView() {
 			<Helmet>
 				<title>Subject - {id as string}</title>
 			</Helmet>
-			<Layout
+			<Body
 				title={`Subject - ${id}`}
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -202,7 +203,7 @@ export default function SubjectView() {
 						</>
 					</Card1>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

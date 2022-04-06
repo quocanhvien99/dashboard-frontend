@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import { getDepartmentList, removeDepartment } from '../api';
 import { useNavigate } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function DepartmentList() {
 	const navigate = useNavigate();
@@ -113,7 +114,7 @@ export default function DepartmentList() {
 			<Helmet>
 				<title>Department List</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Department List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -149,7 +150,7 @@ export default function DepartmentList() {
 						Are you sure want to delete this department information?
 					</Modal>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

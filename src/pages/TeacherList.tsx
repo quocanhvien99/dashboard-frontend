@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import { getUserList, removeUser } from '../api';
 import { useNavigate } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function TeacherList() {
 	const navigate = useNavigate();
@@ -123,7 +124,7 @@ export default function TeacherList() {
 			<Helmet>
 				<title>Student List</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Teacher List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -162,7 +163,7 @@ export default function TeacherList() {
 						Are you sure want to delete this teacher information?
 					</Modal>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

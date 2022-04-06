@@ -6,7 +6,7 @@ import './Layout.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { userType } from '../slices/user';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import nav from '../config/nav.config';
 import { logout as logoutAction } from '../slices/user';
 import Title from 'antd/lib/typography/Title';
@@ -14,13 +14,7 @@ import { Footer } from 'antd/lib/layout/layout';
 
 const { Header, Sider, Content } = Layout;
 
-interface Props {
-	children: JSX.Element;
-	title: string;
-	breadcrumb: { title: string; to: string }[];
-}
-
-function LayoutCustom({ children, title, breadcrumb }: Props) {
+function LayoutCustom() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const ref = useRef<HTMLDivElement>(null);
@@ -35,6 +29,7 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 		dispatch(logoutAction());
 	};
 	useEffect(() => {
+		console.log('sdfdsf');
 		if (!userInfo) navigate('/signin');
 	}, [userInfo, navigate]);
 	useEffect(() => {
@@ -134,15 +129,7 @@ function LayoutCustom({ children, title, breadcrumb }: Props) {
 						padding: 24,
 						minHeight: 280,
 					}}>
-					<Title style={{ textTransform: 'capitalize' }}>{title}</Title>
-					<Breadcrumb className="breadcrumb">
-						{breadcrumb.map((x, i) => (
-							<Breadcrumb.Item key={i}>
-								<Link to={x.to}>{x.title}</Link>
-							</Breadcrumb.Item>
-						))}
-					</Breadcrumb>
-					{children}
+					<Outlet />
 				</Content>
 				<Footer style={{ textAlign: 'center' }}></Footer>
 			</Layout>

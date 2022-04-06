@@ -6,6 +6,7 @@ import '../components/Form.scss';
 import { Col, notification, Row } from 'antd';
 import { editDepartment, editProfile, getDepartmentInfo, getUserInfo, searchUser } from '../api';
 import { useParams } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function DepartmentEdit() {
 	const { did } = useParams();
@@ -72,7 +73,7 @@ export default function DepartmentEdit() {
 			<Helmet>
 				<title>Edit Department</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="edit departments"
 				breadcrumb={[
 					{ title: 'Departments', to: '/department/' },
@@ -120,7 +121,7 @@ export default function DepartmentEdit() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

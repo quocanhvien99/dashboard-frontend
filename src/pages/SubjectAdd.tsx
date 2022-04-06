@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import '../components/Form.scss';
 import { Col, notification } from 'antd';
 import { addSubject, getDepartmentList } from '../api';
+import Body from '../components/Body';
 
 export default function SubjectAdd() {
 	const [listDepartment, setListDepartment] = useState([]);
@@ -38,7 +39,7 @@ export default function SubjectAdd() {
 			<Helmet>
 				<title>Add Subject</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="add subject"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -69,7 +70,7 @@ export default function SubjectAdd() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

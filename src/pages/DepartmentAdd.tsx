@@ -6,6 +6,7 @@ import '../components/Form.scss';
 import { Col, notification } from 'antd';
 import { addDepartment, searchUser } from '../api';
 import SC from '../components/Card1.module.scss';
+import Body from '../components/Body';
 
 export default function DepartmentAdd() {
 	const [searchResult, setSearchResult] = useState<any[]>([]);
@@ -64,7 +65,7 @@ export default function DepartmentAdd() {
 			<Helmet>
 				<title>Add Department</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="add department"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -113,7 +114,7 @@ export default function DepartmentAdd() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

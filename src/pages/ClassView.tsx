@@ -6,7 +6,6 @@ import {
 	addMember,
 	addTime,
 	getClassMemberList,
-	getScoreList,
 	getTimeList,
 	removeMember,
 	removeTime,
@@ -17,6 +16,7 @@ import AutoComplete from '../components/AutoComplete';
 import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import './ClassView.scss';
+import Body from '../components/Body';
 
 export default function ClassView() {
 	const { id } = useParams();
@@ -265,12 +265,14 @@ export default function ClassView() {
 		});
 	}, [orderBy1, sortBy1, triggerReload1]);
 
+	console.log('sdfdsf');
+
 	return (
 		<>
 			<Helmet>
 				<title>Class View</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Class View"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -326,7 +328,7 @@ export default function ClassView() {
 						</Collapse.Panel>
 					</Collapse>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

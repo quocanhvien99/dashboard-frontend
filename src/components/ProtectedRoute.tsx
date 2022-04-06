@@ -9,6 +9,5 @@ interface Props {
 
 export default function ProtectedRoute({ children }: Props) {
 	const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
-
 	return isLoggedIn ? children : <Navigate to={'/signin'} />;
 }

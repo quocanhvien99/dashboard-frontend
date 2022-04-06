@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import '../components/Form.scss';
 import SC from '../components/Card1.module.scss';
 import { addUser } from '../api';
+import Body from '../components/Body';
 
 export default function TeacherAdd() {
 	const submit: FormEventHandler = (e) => {
@@ -38,7 +39,7 @@ export default function TeacherAdd() {
 			<Helmet>
 				<title>Add Teachers</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="add teachers"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -118,7 +119,7 @@ export default function TeacherAdd() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

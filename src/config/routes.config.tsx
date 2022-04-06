@@ -1,7 +1,6 @@
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Home from '../pages/Home';
-import ProtectedRoute from '../components/ProtectedRoute';
 import Profile from '../pages/Profile';
 import StudentList from '../pages/StudentList';
 import StudentAdd from '../pages/StudentAdd';
@@ -17,6 +16,8 @@ import SubjectEdit from '../pages/SubjectEdit';
 import Class from '../pages/Class';
 import SubjectView from '../pages/SubjectView';
 import ClassView from '../pages/ClassView';
+import Score from '../pages/Score';
+import TimeTable from '../pages/TimeTable';
 
 const routes = [
 	{
@@ -29,131 +30,75 @@ const routes = [
 	},
 	{
 		path: '/',
-		element: (
-			<ProtectedRoute>
-				<Home />
-			</ProtectedRoute>
-		),
+		element: <Home />,
 	},
 	{
 		path: '/profile',
-		element: (
-			<ProtectedRoute>
-				<Profile />
-			</ProtectedRoute>
-		),
+		element: <Profile />,
 	},
 	{
 		path: '/students',
-		element: (
-			<ProtectedRoute>
-				<StudentList />
-			</ProtectedRoute>
-		),
+		element: <StudentList />,
 	},
 	{
 		path: '/students/add',
-		element: (
-			<ProtectedRoute>
-				<StudentAdd />
-			</ProtectedRoute>
-		),
+		element: <StudentAdd />,
 	},
 	{
 		path: '/teachers',
-		element: (
-			<ProtectedRoute>
-				<TeacherList />
-			</ProtectedRoute>
-		),
+		element: <TeacherList />,
 	},
 	{
 		path: '/teachers/add',
-		element: (
-			<ProtectedRoute>
-				<TeacherAdd />
-			</ProtectedRoute>
-		),
+		element: <TeacherAdd />,
 	},
 	{
 		path: '/department',
-		element: (
-			<ProtectedRoute>
-				<DepartmentList />
-			</ProtectedRoute>
-		),
+		element: <DepartmentList />,
 	},
 	{
 		path: '/department/add',
-		element: (
-			<ProtectedRoute>
-				<DepartmentAdd />
-			</ProtectedRoute>
-		),
+		element: <DepartmentAdd />,
 	},
 	{
 		path: '/department/edit/:uid',
-		element: (
-			<ProtectedRoute>
-				<DepartmentEdit />
-			</ProtectedRoute>
-		),
+		element: <DepartmentEdit />,
 	},
 	{
 		path: '/users/edit/:uid',
-		element: (
-			<ProtectedRoute>
-				<UserEdit />
-			</ProtectedRoute>
-		),
+		element: <UserEdit />,
 	},
 	{
 		path: '/subject/add',
-		element: (
-			<ProtectedRoute>
-				<SubjectAdd />
-			</ProtectedRoute>
-		),
+		element: <SubjectAdd />,
 	},
 	{
 		path: '/subject/',
-		element: (
-			<ProtectedRoute>
-				<SubjectList />
-			</ProtectedRoute>
-		),
+		element: <SubjectList />,
 	},
 	{
 		path: '/subject/edit/:id',
-		element: (
-			<ProtectedRoute>
-				<SubjectEdit />
-			</ProtectedRoute>
-		),
+		element: <SubjectEdit />,
 	},
 	{
 		path: '/subject/:id',
-		element: (
-			<ProtectedRoute>
-				<SubjectView />
-			</ProtectedRoute>
-		),
+		element: <SubjectView />,
 	},
 	{
 		path: '/class',
-		element: (
-			<ProtectedRoute>
-				<Class />
-			</ProtectedRoute>
-		),
+		element: <Class />,
 	},
 	{
 		path: '/class/:id',
-		element: (
-			<ProtectedRoute>
-				<ClassView />
-			</ProtectedRoute>
-		),
+		element: <ClassView />,
+	},
+	{
+		path: '/score',
+		element: <Score />,
+	},
+	{
+		path: '/schedule',
+		element: <TimeTable />,
 	},
 ];
 export default routes;

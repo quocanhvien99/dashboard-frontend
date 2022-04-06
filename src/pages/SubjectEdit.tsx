@@ -3,6 +3,7 @@ import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useParams } from 'react-router-dom';
 import { editSubject, getDepartmentList, getSubjectInfo } from '../api';
+import Body from '../components/Body';
 import Card1 from '../components/Card1';
 import Layout from '../components/Layout';
 
@@ -39,7 +40,7 @@ export default function SubjectEdit() {
 			<Helmet>
 				<title>Edit Subject</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="edit subjects"
 				breadcrumb={[
 					{ title: 'Subjects', to: '/subject/' },
@@ -67,7 +68,7 @@ export default function SubjectEdit() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

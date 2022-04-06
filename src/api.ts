@@ -279,9 +279,8 @@ export function removeTime(cid: string, tid: string) {
 			.catch((err) => reject(err.response.data.msg));
 	});
 }
-export function getScoreList(params: any, cid: string) {
+export function getScoreList(params: any) {
 	return new Promise((resolve, reject) => {
-		params.cid = cid;
 		instance
 			.get(`/score`, { params })
 			.then((res) => resolve(res.data))
@@ -292,6 +291,22 @@ export function updateScore(cid: string, uid: string, score: number) {
 	return new Promise((resolve, reject) => {
 		instance
 			.put(`/score`, { cid, uid, score })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getStatistic() {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/statistic`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getActivityStatistic(year: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/statistic/activity?year=` + year)
 			.then((res) => resolve(res.data))
 			.catch((err) => reject(err.response.data.msg));
 	});

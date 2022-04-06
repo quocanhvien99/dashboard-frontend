@@ -5,9 +5,6 @@
 	border-radius: 5px;
 	display: flex;
 	justify-content: space-between;
-	> div {
-		margin-bottom: 10px;
-	}
 }
 .Search {
 	width: 30%;
@@ -56,5 +53,8 @@
 @media screen and (max-width: 576px) {
 	.Card {
 		flex-direction: column;
+		.Search {
+			margin-top: 10px;
+		}
 	}
 }

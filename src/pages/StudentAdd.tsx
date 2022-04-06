@@ -6,6 +6,7 @@ import '../components/Form.scss';
 import { Col, notification, Row } from 'antd';
 import { addUser } from '../api';
 import SC from '../components/Card1.module.scss';
+import Body from '../components/Body';
 
 export default function StudentAdd() {
 	const submit: FormEventHandler = (e) => {
@@ -38,7 +39,7 @@ export default function StudentAdd() {
 			<Helmet>
 				<title>Add Students</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="add students"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -118,7 +119,7 @@ export default function StudentAdd() {
 						<button className="btn">Submit</button>
 					</form>
 				</Card1>
-			</Layout>
+			</Body>
 		</>
 	);
 }

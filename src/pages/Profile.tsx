@@ -9,6 +9,7 @@ import { userType } from '../slices/user';
 import SC from './Profile.module.scss';
 import { changePassword as changePassApi, editProfile, getUserInfo } from '../api';
 import { update as updateAction } from '../slices/user';
+import Body from '../components/Body';
 
 export default function Profile() {
 	const dispatch = useDispatch();
@@ -82,7 +83,7 @@ export default function Profile() {
 			<Helmet>
 				<title>Profile</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Profile"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -217,7 +218,7 @@ export default function Profile() {
 						/>
 					</Modal>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }

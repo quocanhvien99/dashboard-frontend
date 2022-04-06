@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import { getClassList, getDepartmentList, removeDepartment } from '../api';
 import { useNavigate } from 'react-router-dom';
+import Body from '../components/Body';
 
 export default function Class() {
 	const navigate = useNavigate();
@@ -82,7 +83,7 @@ export default function Class() {
 			<Helmet>
 				<title>Class List</title>
 			</Helmet>
-			<Layout
+			<Body
 				title="Class List"
 				breadcrumb={[
 					{ title: 'Dashboard', to: '/' },
@@ -109,7 +110,7 @@ export default function Class() {
 						columns={columns}
 					/>
 				</>
-			</Layout>
+			</Body>
 		</>
 	);
 }
