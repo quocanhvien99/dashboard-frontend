@@ -1,6 +1,6 @@
 import { Collapse, Modal, notification, Table } from 'antd';
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import {
 	addMember,
@@ -13,7 +13,6 @@ import {
 	updateScore,
 } from '../api';
 import AutoComplete from '../components/AutoComplete';
-import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import './ClassView.scss';
 import Body from '../components/Body';

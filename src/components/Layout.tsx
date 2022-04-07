@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Avatar, Breadcrumb, Layout, Menu } from 'antd';
+import { Avatar, Layout, Menu } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, DownOutlined } from '@ant-design/icons';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import './Layout.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { userType } from '../slices/user';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import nav from '../config/nav.config';
 import { logout as logoutAction } from '../slices/user';
-import Title from 'antd/lib/typography/Title';
+import { setData as setScheduleData } from '../slices/schedule';
 import { Footer } from 'antd/lib/layout/layout';
+import { getTimetable } from '../api';
 
 const { Header, Sider, Content } = Layout;
 
@@ -25,14 +26,17 @@ function LayoutCustom() {
 	const userInfoState = useSelector((state: RootState) => state.user.userInfo);
 	const userInfo = userInfoState as userType;
 
+	console.log('sdfsdfsdf');
+
 	const logout = () => {
 		dispatch(logoutAction());
 	};
 	useEffect(() => {
-		console.log('sdfdsf');
-		if (!userInfo) navigate('/signin');
-	}, [userInfo, navigate]);
-	useEffect(() => {
+		getTimetable().then((res: any) => {
+			dispatch(setScheduleData(res));
+		});
+
+		//Xử lý collapse chỗ user
 		function handleClickOutside(event: MouseEvent) {
 			if (ref.current && !ref.current.contains(event.target as Node)) {
 				setCollapsedUser(false);
@@ -44,7 +48,11 @@ function LayoutCustom() {
 			// dispose
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, []);
+	}, [dispatch]);
+
+	useEffect(() => {
+		if (!userInfoState) navigate('/signin');
+	}, [userInfoState, navigate]);
 
 	return (
 		<Layout>

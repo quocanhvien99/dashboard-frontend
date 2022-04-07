@@ -1,11 +1,9 @@
 import React, { ChangeEvent, FocusEvent, FormEventHandler, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Card1 from '../components/Card1';
-import Layout from '../components/Layout';
 import '../components/Form.scss';
 import { Col, notification } from 'antd';
 import { addDepartment, searchUser } from '../api';
-import SC from '../components/Card1.module.scss';
 import Body from '../components/Body';
 
 export default function DepartmentAdd() {

@@ -1,7 +1,6 @@
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Card1 from '../components/Card1';
-import Layout from '../components/Layout';
 import '../components/Form.scss';
 import { Col, notification, Row } from 'antd';
 import { editProfile, getUserInfo } from '../api';

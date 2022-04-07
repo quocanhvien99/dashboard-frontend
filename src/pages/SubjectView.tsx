@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { useNavigate, useParams } from 'react-router-dom';
-import Layout from '../components/Layout';
+import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
 import SC from '../components/Card1.module.scss';
 import Card1 from '../components/Card1';
 import { addClass, getClassList, getSubjectInfo, removeClass, searchUser } from '../api';

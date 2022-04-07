@@ -1,10 +1,9 @@
 import React, { ChangeEvent, FormEventHandler, FocusEvent, useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import Card1 from '../components/Card1';
-import Layout from '../components/Layout';
 import '../components/Form.scss';
-import { Col, notification, Row } from 'antd';
-import { editDepartment, editProfile, getDepartmentInfo, getUserInfo, searchUser } from '../api';
+import { Col, notification } from 'antd';
+import { editDepartment, getDepartmentInfo, searchUser } from '../api';
 import { useParams } from 'react-router-dom';
 import Body from '../components/Body';
 

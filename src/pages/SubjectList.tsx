@@ -1,8 +1,7 @@
 import { Modal, notification, Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { SearchOutlined } from '@ant-design/icons';
-import Layout from '../components/Layout';
 import SC from './List.module.scss';
 import { getSubjectList, removeSubject } from '../api';
 import { useNavigate } from 'react-router-dom';

@@ -16,11 +16,13 @@ export default function Body({ children, title, breadcrumb }: Props) {
 			<Breadcrumb className="breadcrumb">
 				{breadcrumb.map((x, i) => (
 					<Breadcrumb.Item key={i}>
-						<Link to={x.to}>{x.title}</Link>
+						<Link to={x.to} key={i}>
+							{x.title}
+						</Link>
 					</Breadcrumb.Item>
 				))}
-				{children}
 			</Breadcrumb>
+			{children}
 		</>
 	);
 }

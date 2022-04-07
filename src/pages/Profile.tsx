@@ -1,7 +1,6 @@
 import { Alert, Avatar, Modal, notification } from 'antd';
 import React, { FormEventHandler, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import Layout from '../components/Layout';
+import { Helmet } from 'react-helmet-async';
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../app/store';

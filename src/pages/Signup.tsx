@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Alert, Button, Col, Form, Input, notification, Row } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import * as api from '../api';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';

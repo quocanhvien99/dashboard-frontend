@@ -1,0 +1,29 @@
+.head {
+	display: flex;
+	justify-content: space-between;
+	span {
+		font-size: larger;
+		font-weight: 500;
+	}
+	a {
+		font-weight: 500;
+	}
+}
+.body {
+	list-style: none;
+	padding: 0;
+	font-weight: 500;
+	li {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		p {
+			margin: 0;
+		}
+		div {
+			p:last-child {
+				color: #777;
+			}
+		}
+	}
+}

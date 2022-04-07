@@ -1,9 +1,8 @@
 import { Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { getScoreList } from '../api';
 import Body from '../components/Body';
-import Layout from '../components/Layout';
 import SC from './List.module.scss';
 
 export default function Score() {

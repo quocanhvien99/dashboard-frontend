@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FocusEvent, FormEventHandler, useRef, useState } from 'react';
+import React, { ChangeEvent, FocusEvent, useRef, useState } from 'react';
 
 import '../components/Form.scss';
 

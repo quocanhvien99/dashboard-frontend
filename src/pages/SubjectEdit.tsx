@@ -1,11 +1,10 @@
 import { Col, notification } from 'antd';
 import React, { FormEventHandler, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { editSubject, getDepartmentList, getSubjectInfo } from '../api';
 import Body from '../components/Body';
 import Card1 from '../components/Card1';
-import Layout from '../components/Layout';
 
 export default function SubjectEdit() {
 	const { id } = useParams();
@@ -56,8 +55,8 @@ export default function SubjectEdit() {
 							<label htmlFor="did">Department Name</label>
 							<div className="select-custom">
 								<select name="did" id="did">
-									{listDepartment.map((x: any) => (
-										<option value={x.id} selected={x.dname === initValue.dname}>
+									{listDepartment.map((x: any, i: any) => (
+										<option value={x.id} selected={x.dname === initValue.dname} key={i}>
 											{x.dname}
 										</option>
 									))}

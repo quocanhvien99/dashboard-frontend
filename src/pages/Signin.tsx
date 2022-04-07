@@ -3,7 +3,7 @@ import { Form, Input, Button, Checkbox, Row, Col, notification } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import Title from 'antd/lib/typography/Title';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import * as api from '../api';
 import { login } from '../slices/user';
 import { useDispatch, useSelector } from 'react-redux';

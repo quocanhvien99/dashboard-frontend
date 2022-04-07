@@ -84,3 +84,27 @@ h1 {
 .breadcrumb {
 	margin: 10px 0 20px 0;
 }
+
+aside.sider-menu {
+	li.ant-menu-submenu {
+		ul {
+			display: none;
+		}
+		&.ant-menu-submenu-open {
+			ul {
+				display: block;
+			}
+		}
+	}
+}
+@media screen and (max-width: 768px) {
+	aside.sider-menu {
+		position: absolute;
+		top: 64px;
+		z-index: 3;
+		height: 100vh;
+		div.logo {
+			display: none;
+		}
+	}
+}

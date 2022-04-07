@@ -54,6 +54,7 @@ const nav: { [key: string]: any } = {
 		},
 	],
 	student: [
+		{ title: 'dashboard', to: '/', icon: DashboardOutlined },
 		{
 			title: 'schedule',
 			to: '/schedule',

@@ -1,9 +1,22 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { useDispatch } from 'react-redux';
+import { logout as logoutAction } from './slices/user';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:9000',
 	withCredentials: true,
 });
+instance.interceptors.response.use(
+	(res: AxiosResponse<any, any>) => res,
+	(err: AxiosError) => {
+		console.log(err.code);
+		if (err.code === '401') {
+			const dispatch = useDispatch();
+			dispatch(logoutAction());
+		}
+		return Promise.reject(err);
+	}
+);
 
 export function login(email: string, password: string) {
 	return new Promise((resolve, reject) => {
@@ -307,6 +320,14 @@ export function getActivityStatistic(year: string) {
 	return new Promise((resolve, reject) => {
 		instance
 			.get(`/statistic/activity?year=` + year)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function getTimetable() {
+	return new Promise((resolve, reject) => {
+		instance
+			.get(`/timetable`)
 			.then((res) => resolve(res.data))
 			.catch((err) => reject(err.response.data.msg));
 	});

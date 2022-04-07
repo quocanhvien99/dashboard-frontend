@@ -1,7 +1,6 @@
-import React, { ChangeEvent, FocusEvent, FormEventHandler, useEffect, useRef, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import React, { FormEventHandler, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Card1 from '../components/Card1';
-import Layout from '../components/Layout';
 import '../components/Form.scss';
 import { Col, notification } from 'antd';
 import { addSubject, getDepartmentList } from '../api';
@@ -60,8 +59,10 @@ export default function SubjectAdd() {
 							<label htmlFor="did">Department Name</label>
 							<div className="select-custom">
 								<select name="did" id="did">
-									{listDepartment.map((x: any) => (
-										<option value={x.id}>{x.dname}</option>
+									{listDepartment.map((x: any, i: number) => (
+										<option value={x.id} key={i}>
+											{x.dname}
+										</option>
 									))}
 								</select>
 								<span className="material-icons-outlined"> arrow_drop_down </span>

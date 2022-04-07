@@ -1,10 +1,8 @@
-import { Modal, notification, Select, Table } from 'antd';
+import { Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { SearchOutlined } from '@ant-design/icons';
-import Layout from '../components/Layout';
+import { Helmet } from 'react-helmet-async';
 import SC from './List.module.scss';
-import { getClassList, getDepartmentList, removeDepartment } from '../api';
+import { getClassList } from '../api';
 import { useNavigate } from 'react-router-dom';
 import Body from '../components/Body';
 
@@ -16,7 +14,6 @@ export default function Class() {
 	const [dataSource, setDataSource] = useState([]);
 	const [orderBy, setOrderBy] = useState('');
 	const [sortBy, setSortBy] = useState('');
-	const [triggerReload, setTriggerReload] = useState(false);
 
 	const columns = [
 		{
@@ -76,7 +73,7 @@ export default function Class() {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, orderBy, sortBy, triggerReload]);
+	}, [limit, skip, orderBy, sortBy]);
 
 	return (
 		<>
