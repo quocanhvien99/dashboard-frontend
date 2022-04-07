@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
@@ -21,22 +22,19 @@ export default function History() {
 
 	return (
 		<div>
-			<div className={SC.head}>
-				<span>Teaching History</span>
-			</div>
-			<ul>
-				{upcoming.map((x) => (
-					<li>
-						<p>{timeFormat(x.StartTime, x.EndTime)}</p>
-						<p>{x.Subject}</p>
-						<p>{x.EndTime > new Date() ? 'In Progress' : 'Completed'}</p>
+			<ul className={SC['actitvity-feed']}>
+				{upcoming.map((x, i) => (
+					<li className={`${SC['feed-item']} ${i === upcoming.length - 1 ? SC['feed-last-item'] : ''}`}>
+						<p className={SC.time}>{`${moment(x.StartTime).format('MMM D, hh.mma')} - ${moment(x.EndTime).format(
+							'hh.mma'
+						)}`}</p>
+						<p className={SC.subject}>{x.Subject}</p>
+						<p className={`${SC.state} ${x.EndTime > new Date() ? SC.inprogress : ''}`}>
+							{x.EndTime > new Date() ? 'In Progress' : 'Completed'}
+						</p>
 					</li>
 				))}
 			</ul>
 		</div>
 	);
-}
-
-function timeFormat(start: Date, end: Date) {
-	return start.getHours() + '.' + start.getMinutes() + '-' + end.getHours() + '.' + end.getMinutes();
 }

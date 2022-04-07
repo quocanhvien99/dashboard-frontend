@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from './slices/user';
+import store from './app/store';
 
 const instance = axios.create({
 	baseURL: 'http://localhost:9000',
@@ -9,10 +10,8 @@ const instance = axios.create({
 instance.interceptors.response.use(
 	(res: AxiosResponse<any, any>) => res,
 	(err: AxiosError) => {
-		console.log(err.code);
-		if (err.code === '401') {
-			const dispatch = useDispatch();
-			dispatch(logoutAction());
+		if (err.response?.status === 401) {
+			store.dispatch(logoutAction());
 		}
 		return Promise.reject(err);
 	}

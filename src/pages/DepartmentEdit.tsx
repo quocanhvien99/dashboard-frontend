@@ -6,23 +6,16 @@ import { Col, notification } from 'antd';
 import { editDepartment, getDepartmentInfo, searchUser } from '../api';
 import { useParams } from 'react-router-dom';
 import Body from '../components/Body';
+import AutoComplete from '../components/AutoComplete';
 
 export default function DepartmentEdit() {
 	const { did } = useParams();
 	const [dhead, setDhead] = useState('');
 	const [dheadId, setDheadId] = useState('');
 	const [dname, setDname] = useState('');
-	const [toggle, setToggle] = useState(false);
-	const [searchResult, setSearchResult] = useState<any[]>([]);
 
 	const submit: FormEventHandler = (e) => {
 		e.preventDefault();
-
-		if (!searchResult.length && dhead)
-			return notification['error']({
-				message: 'Error',
-				description: 'User does not exist!',
-			});
 		let dHeadId = '';
 		if (dhead) dHeadId = dheadId;
 		editDepartment(parseInt(did as string), dname, dHeadId)
@@ -46,26 +39,6 @@ export default function DepartmentEdit() {
 			setDheadId(res.dhead_id);
 		});
 	}, []);
-
-	const timeOutId = useRef<number>();
-	const onChangeDhead = (e: ChangeEvent<HTMLInputElement>) => {
-		setDhead(e.currentTarget.value);
-
-		if (e.target.value) setToggle(true);
-		else return setToggle(false);
-		clearTimeout(timeOutId.current);
-		//@ts-ignore:next-line
-		timeOutId.current = setTimeout(() => {
-			searchUser('teacher', 0, 5, dhead).then((res: any) => {
-				console.log(res);
-				setSearchResult(res);
-			});
-		}, 1000);
-	};
-	const toggleResult = (event: FocusEvent<HTMLInputElement>) => {
-		if (!event.target.value) return;
-		setToggle(!toggle);
-	};
 
 	return (
 		<>
@@ -92,32 +65,15 @@ export default function DepartmentEdit() {
 							/>
 						</Col>
 						<Col xs={24} sm={12}>
-							<label htmlFor="dhead">Head of Department</label>
-							<div className="search">
-								<input
-									type="text"
-									name="dhead"
-									id="dhead"
-									onChange={onChangeDhead}
-									onFocus={toggleResult}
-									onBlur={toggleResult}
-									value={dhead}
-								/>
-								<ul className={`${toggle ? 'show' : ''}`}>
-									{searchResult.map((x) => (
-										<li
-											key={x.id}
-											onClick={(e) => {
-												setDhead(x.name);
-												setDheadId(x.id);
-											}}>
-											{x.name + ' | ' + x.email}
-										</li>
-									))}
-								</ul>
-							</div>
+							<AutoComplete
+								setSelectId={setDheadId}
+								searchHandle={(dhead: string) => searchUser('teacher', 0, 5, dhead)}
+								label="Head of Department"
+							/>
 						</Col>
-						<button className="btn">Submit</button>
+						<button className="btn" style={{ marginTop: '20px' }}>
+							Submit
+						</button>
 					</form>
 				</Card1>
 			</Body>

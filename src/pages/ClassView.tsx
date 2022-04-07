@@ -16,6 +16,7 @@ import AutoComplete from '../components/AutoComplete';
 import SC from './List.module.scss';
 import './ClassView.scss';
 import Body from '../components/Body';
+import moment from 'moment';
 
 export default function ClassView() {
 	const { id } = useParams();
@@ -252,6 +253,10 @@ export default function ClassView() {
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
 		getClassMemberList(params, id as string).then((res: any) => {
+			res = res.map((x: any) => ({
+				...x,
+				dob: x.dob ? x.dob.split('T')[0] : '',
+			}));
 			setDataSource(res);
 		});
 	}, [orderBy, sortBy, triggerReload]);
@@ -260,6 +265,11 @@ export default function ClassView() {
 		if (orderBy1) params.orderby = orderBy1;
 		if (sortBy1) params.sortby = sortBy1;
 		getTimeList(params, id as string).then((res: any) => {
+			res = res.map((x: any) => ({
+				...x,
+				start: moment(x.start).format('YYYY-MM-DD hh:mm'),
+				end: moment(x.end).format('YYYY-MM-DD hh:mm'),
+			}));
 			setDataSource1(res);
 		});
 	}, [orderBy1, sortBy1, triggerReload1]);
@@ -290,7 +300,13 @@ export default function ClassView() {
 								/>
 							</form>
 							<div className={SC.table}>
-								<Table onChange={tableChange} dataSource={dataSource} columns={columnsMember} sticky />
+								<Table
+									pagination={false}
+									onChange={tableChange}
+									dataSource={dataSource}
+									columns={columnsMember}
+									sticky
+								/>
 							</div>
 							<Modal
 								title="Confirm"
@@ -315,7 +331,13 @@ export default function ClassView() {
 								</form>
 							</div>
 							<div className={SC.table}>
-								<Table onChange={tableChange1} dataSource={dataSource1} columns={columnsTimetable} sticky />
+								<Table
+									pagination={false}
+									onChange={tableChange1}
+									dataSource={dataSource1}
+									columns={columnsTimetable}
+									sticky
+								/>
 							</div>
 							<Modal
 								title="Confirm"
@@ -331,3 +353,7 @@ export default function ClassView() {
 		</>
 	);
 }
+
+// function format(x:Date) {
+// 	return ``
+// }

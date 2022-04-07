@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -20,16 +21,12 @@ export default function Upcoming() {
 		.sort((a, b) => a.StartTime.getTime() - b.StartTime.getTime());
 	return (
 		<div>
-			<div className={SC.head}>
-				<span>Upcoming Lesson</span>
-				<Link to="/class">View all course</Link>
-			</div>
 			<ul className={SC.body}>
 				{upcoming.map((x, i) => (
 					<li key={i}>
 						<div>
-							<p>{x.StartTime.toDateString()}</p>
-							<p>{timeFormat(x.StartTime, x.EndTime)}</p>
+							<p>{moment(x.StartTime).format('MMM D, ddd')}</p>
+							<p>{`${moment(x.StartTime).format('h.mma')} - ${moment(x.EndTime).format('h.mma')}`}</p>
 						</div>
 						<p>{x.Subject}</p>
 					</li>

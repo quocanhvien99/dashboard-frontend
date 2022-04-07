@@ -9,6 +9,11 @@ export interface userType {
 	phone: string | null;
 	profile_pic: string | null;
 	role: string;
+	address: string | null;
+	city: string | null;
+	state: string | null;
+	zip: string | null;
+	country: string | null;
 }
 interface stateType {
 	userInfo: {} | userType;

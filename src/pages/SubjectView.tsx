@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import SC from '../components/Card1.module.scss';
+import SC1 from './List.module.scss';
 import Card1 from '../components/Card1';
 import { addClass, getClassList, getSubjectInfo, removeClass, searchUser } from '../api';
 import { Modal, notification, Select, Table } from 'antd';
@@ -13,7 +14,6 @@ export default function SubjectView() {
 	const [subjectInfo, setSubjectInfo] = useState<any>();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
-	const [s, setS] = useState('');
 	const [total, setTotal] = useState(0);
 	const [dataSource, setDataSource] = useState([]);
 	const [orderBy, setOrderBy] = useState('');
@@ -46,7 +46,7 @@ export default function SubjectView() {
 			key: 'action',
 			render: (text: any, record: any) => (
 				<>
-					<span className={`material-icons-outlined ${SC.remove}`} onClick={(e) => removeHandle(record.id)}>
+					<span className={`material-icons-outlined ${SC1.remove}`} onClick={(e) => removeHandle(record.id)}>
 						{' '}
 						delete{' '}
 					</span>
@@ -58,14 +58,13 @@ export default function SubjectView() {
 	useEffect(() => {
 		getSubjectInfo(id as string).then((res) => setSubjectInfo(res));
 		let params: any = { skip, limit, sid: id };
-		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
 		getClassList(params).then((res: any) => {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
+	}, [limit, skip, orderBy, sortBy, triggerReload]);
 
 	const removeHandle = (id: string) => {
 		setIsModalVisible(true);
@@ -152,7 +151,7 @@ export default function SubjectView() {
 							<h5 className={SC.title}>
 								<span>Classes</span>
 							</h5>
-							<div className={SC.Card}>
+							<div className={SC.header}>
 								<div>
 									Show{' '}
 									<Select defaultValue={2} onChange={(value) => setLimit(value)}>
@@ -164,7 +163,18 @@ export default function SubjectView() {
 									</Select>{' '}
 									entries
 								</div>
-								<button onClick={() => setIsModalVisible1(true)}>
+								<button
+									onClick={() => setIsModalVisible1(true)}
+									style={{
+										background: 'none',
+										border: '1px solid #eee',
+										borderRadius: '3px',
+										color: '#999',
+										display: 'flex',
+										alignItems: 'center',
+										padding: '3px',
+										cursor: 'pointer',
+									}}>
 									<span className="material-icons-outlined"> add </span>
 								</button>
 							</div>

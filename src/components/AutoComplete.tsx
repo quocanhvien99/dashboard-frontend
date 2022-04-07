@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FocusEvent, useRef, useState } from 'react';
 
-import '../components/Form.scss';
+import './Form.scss';
 
 interface Props {
 	setSelectId: React.Dispatch<React.SetStateAction<string>>;

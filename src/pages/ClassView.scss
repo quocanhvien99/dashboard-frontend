@@ -1,9 +1,10 @@
 .addForm {
 	display: flex;
 	border: 1px solid #ddd;
-	max-width: 500px;
+	width: fit-content;
 	align-items: center;
 	border-radius: 3px;
+	margin-bottom: 20px;
 	input {
 		border: none;
 		&:focus {
@@ -11,31 +12,34 @@
 		}
 		justify-content: space-between;
 	}
-}
-
-.btn {
-	display: flex;
-	align-items: center;
-	background: none;
-	color: #ddd;
-	padding: 0 0 0 5px;
-	&:hover {
-		background: none;
+	.btn {
+		display: flex;
+		align-items: center;
+		background: none !important;
+		color: #ddd !important;
+		padding: 0 0 0 5px !important;
+		&:hover {
+			background: none !important;
+		}
 	}
 }
 
 .addForm1 {
 	display: flex;
 	align-items: flex-end;
-	input {
-		margin-bottom: 0;
+	flex-wrap: wrap;
+	margin-bottom: 20px;
+	> div {
+		margin-right: 10px;
+		input {
+			margin-bottom: 0;
+		}
 	}
 	.btn {
 		border: 1px solid #ccc;
 		color: #ccc;
 		height: fit-content;
 		padding: 5px 10px;
-		margin-left: 10px;
 		transition: all 0.3s;
 		&:hover {
 			background: #18aefa;

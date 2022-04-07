@@ -1,5 +1,5 @@
 import { Alert, Avatar, Modal, notification } from 'antd';
-import React, { FormEventHandler, useState } from 'react';
+import React, { FormEventHandler, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { UserOutlined, EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,8 @@ import Body from '../components/Body';
 
 export default function Profile() {
 	const dispatch = useDispatch();
+	const ref = useRef<HTMLFormElement>(null);
+
 	const userInfoState = useSelector((state: RootState) => state.user.userInfo);
 	const userInfo = userInfoState as userType;
 	const [showAbout, setShowAbout] = useState(true);
@@ -21,19 +23,14 @@ export default function Profile() {
 	const [confirmPass, setConfirmPass] = useState('');
 	const [isFetching, setIsFetching] = useState(false);
 	const [isModalVisible, setIsModalVisible] = useState(false);
-	const [ename, setEname] = useState<string>(userInfo.name);
-	const [edob, setEdob] = useState<string>(userInfo.dob as string);
-	const [egender, setEgender] = useState<string>(userInfo.gender as string);
-	const [ephone, setEphone] = useState<string>(userInfo.phone as string);
-	const [avatar, setAvatar] = useState<Blob | null>(null);
 
 	const handleOk = () => {
-		const formData = new FormData();
-		ename && formData.append('name', ename);
-		edob && formData.append('dob', edob);
-		egender && formData.append('gender', egender);
-		ephone && formData.append('phone', ephone);
-		avatar && formData.append('profile_pic', avatar as Blob);
+		const formData = new FormData(ref.current as HTMLFormElement);
+		// ename && formData.append('name', ename);
+		// edob && formData.append('dob', edob);
+		// egender && formData.append('gender', egender);
+		// ephone && formData.append('phone', ephone);
+		// avatar && formData.append('profile_pic', avatar as Blob);
 
 		editProfile(userInfo.id, formData)
 			.then((res) => {
@@ -127,7 +124,7 @@ export default function Profile() {
 							</div>
 							<div className={SC.row}>
 								<div className={SC.col}>Date of Birth</div>
-								<div className={SC.col}>{userInfo.dob || 'null'}</div>
+								<div className={SC.col}>{userInfo.dob?.split('T')[0] || 'null'}</div>
 							</div>
 							<div className={SC.row}>
 								<div className={SC.col}>Gender</div>
@@ -179,42 +176,46 @@ export default function Profile() {
 						visible={isModalVisible}
 						onOk={handleOk}
 						onCancel={() => setIsModalVisible(false)}>
-						<label htmlFor="ename">Name</label>
-						<input type="text" name="ename" id="ename" value={ename} onChange={(e) => setEname(e.target.value)} />
-						<label htmlFor="edob">Date of birth</label>
-						<input
-							type="text"
-							name="edob"
-							id="edob"
-							value={edob?.toString()}
-							onChange={(e) => setEdob(e.target.value)}
-						/>
-						<label htmlFor="egender">Gender</label>
-						<input
-							type="text"
-							name="egender"
-							id="egender"
-							value={egender?.toString()}
-							onChange={(e) => setEgender(e.target.value)}
-						/>
-						<label htmlFor="ephone">Phone</label>
-						<input
-							type="text"
-							name="ephone"
-							id="ephone"
-							value={ephone?.toString()}
-							onChange={(e) => setEphone(e.target.value)}
-						/>
-						<label htmlFor="eavatar">Avatar</label>
-						<input
-							type="file"
-							name="eavatar"
-							id="eavatar"
-							onChange={(e) => {
-								//@ts-ignore
-								setAvatar(e.target.files[0]);
-							}}
-						/>
+						<form ref={ref}>
+							<label htmlFor="name">Name</label>
+							<input type="text" name="name" id="name" defaultValue={userInfo.name} />
+							<label htmlFor="dob">Date of birth</label>
+							<input
+								type="date"
+								name="dob"
+								id="dob"
+								defaultValue={new Date(userInfo.dob as string).toISOString().split('T')[0]}
+							/>
+							<label htmlFor="gender">Gender</label>
+							<div className="select-custom">
+								<select name="gender" id="gender">
+									<option value="female" selected={userInfo.gender === 'female'}>
+										Female
+									</option>
+									<option value="male" selected={userInfo.gender === 'male'}>
+										Male
+									</option>
+									<option value="others" selected={userInfo.gender === 'others'}>
+										Others
+									</option>
+								</select>
+								<span className="material-icons-outlined"> arrow_drop_down </span>
+							</div>
+							<label htmlFor="phone">Phone</label>
+							<input type="text" name="phone" id="phone" defaultValue={userInfo.phone as string} />
+							<label htmlFor="avatar">Avatar</label>
+							<input type="file" name="avatar" id="avatar" />
+							<label htmlFor="address">Address</label>
+							<input type="text" name="address" id="address" defaultValue={userInfo.address as string} />
+							<label htmlFor="city">City</label>
+							<input type="text" name="city" id="city" defaultValue={userInfo.city as string} />
+							<label htmlFor="state">State</label>
+							<input type="text" name="state" id="state" defaultValue={userInfo.state as string} />
+							<label htmlFor="zip">Zip Code</label>
+							<input type="text" name="zip" id="zip" defaultValue={userInfo.zip as string} />
+							<label htmlFor="country">Country</label>
+							<input type="text" name="country" id="country" defaultValue={userInfo.country as string} />
+						</form>
 					</Modal>
 				</>
 			</Body>

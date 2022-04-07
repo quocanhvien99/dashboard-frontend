@@ -48,15 +48,15 @@ input[type='file'] {
 }
 .btn {
 	border: none;
-	color: #fff;
-	background: #ffbc53;
+	color: #fff !important;
+	background: #ffbc53 !important;
 	border-radius: 5px;
-	padding: 5px 15px;
+	padding: 5px 15px !important;
 	font-weight: 500;
 	font-size: large;
 	cursor: pointer;
 	&:hover {
-		background: #18aefa;
+		background: #18aefa !important;
 	}
 }
 .search {

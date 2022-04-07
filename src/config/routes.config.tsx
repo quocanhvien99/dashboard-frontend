@@ -61,7 +61,7 @@ const routes = [
 		element: <DepartmentAdd />,
 	},
 	{
-		path: '/department/edit/:uid',
+		path: '/department/edit/:did',
 		element: <DepartmentEdit />,
 	},
 	{

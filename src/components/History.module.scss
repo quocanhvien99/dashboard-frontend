@@ -6,3 +6,46 @@
 		font-weight: 500;
 	}
 }
+.actitvity-feed {
+	list-style: none;
+	padding: 0;
+	.feed-item {
+		border-left: 2px solid #e4e8eb;
+		padding-bottom: 20px;
+		padding-left: 20px;
+		position: relative;
+		&::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			left: -7px;
+			width: 12px;
+			height: 12px;
+			border-radius: 50%;
+			background-color: #18aefa;
+		}
+		&.feed-last-item {
+			border-left-color: transparent;
+		}
+		p {
+			margin: 0;
+		}
+		.time {
+			font-size: small;
+			color: #777;
+			font-weight: 500;
+		}
+		.subject,
+		.state {
+			font-weight: 600;
+			font-size: 16px;
+		}
+		.state {
+			color: #3bbafd;
+			&.inprogress {
+				color: #ffba38;
+			}
+		}
+	}
+}

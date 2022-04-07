@@ -15,6 +15,7 @@ import Card1 from '../components/Card1';
 import Title from 'antd/lib/typography/Title';
 import Upcoming from '../components/Upcoming';
 import History from '../components/History';
+import { Link } from 'react-router-dom';
 Chart.register(...registerables);
 
 function Home() {
@@ -43,7 +44,7 @@ function Home() {
 			</Helmet>
 			<Body title="Welcome" breadcrumb={[{ title: 'Dashboard', to: '/' }]}>
 				<>
-					<Row gutter={[8, 8]}>
+					<Row gutter={[24, 24]}>
 						{userInfo.role === 'admin' && data && (
 							<>
 								<Col span={24} sm={12} lg={6}>
@@ -118,32 +119,35 @@ function Home() {
 						)}
 					</Row>
 					{userInfo.role === 'admin' && (
-						<Row gutter={[8, 8]} style={{ marginTop: '30px' }}>
+						<Row gutter={[24, 24]} style={{ marginTop: '30px' }}>
 							<Col span={24} md={12}>
-								<div className="activityHeader">
-									<Title level={4}>Activity</Title>
-									<div className="select-custom">
-										<select name="gender" id="gender" onChange={(e) => setSelectedYear(e.currentTarget.value)}>
-											<option
-												value={(currentYear.current - 1).toString()}
-												selected={selectedYear === (currentYear.current - 1).toString()}>
-												{currentYear.current - 1}
-											</option>
-											<option
-												value={currentYear.current.toString()}
-												selected={selectedYear === currentYear.current.toString()}>
-												{currentYear.current}
-											</option>
-											<option
-												value={(currentYear.current + 1).toString()}
-												selected={selectedYear === (currentYear.current + 1).toString()}>
-												{currentYear.current + 1}
-											</option>
-										</select>
-										<span className="material-icons-outlined"> arrow_drop_down </span>
-									</div>
-								</div>
-								<Card1 style={{ marginTop: 0 }}>
+								<Card1
+									style={{ marginTop: 0 }}
+									header={
+										<>
+											<Title level={4}>Activity</Title>
+											<div className="select-custom">
+												<select name="gender" id="gender" onChange={(e) => setSelectedYear(e.currentTarget.value)}>
+													<option
+														value={(currentYear.current - 1).toString()}
+														selected={selectedYear === (currentYear.current - 1).toString()}>
+														{currentYear.current - 1}
+													</option>
+													<option
+														value={currentYear.current.toString()}
+														selected={selectedYear === currentYear.current.toString()}>
+														{currentYear.current}
+													</option>
+													<option
+														value={(currentYear.current + 1).toString()}
+														selected={selectedYear === (currentYear.current + 1).toString()}>
+														{currentYear.current + 1}
+													</option>
+												</select>
+												<span className="material-icons-outlined"> arrow_drop_down </span>
+											</div>
+										</>
+									}>
 									<Line
 										data={{
 											labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -165,16 +169,33 @@ function Home() {
 							</Col>
 						</Row>
 					)}
-					<Row gutter={[8, 8]} style={{ marginTop: '30px' }}>
-						<Col span={24} md={12}>
-							<Upcoming />
-						</Col>
-					</Row>
-					<Row gutter={[8, 8]} style={{ marginTop: '30px' }}>
-						<Col span={24} md={12}>
-							<History />
-						</Col>
-					</Row>
+					{userInfo.role !== 'admin' && (
+						<Row gutter={[24, 24]} style={{ marginTop: '30px' }}>
+							<Col span={24} md={12}>
+								<Card1
+									header={
+										<>
+											<Title level={4}>Upcoming Lesson</Title>
+											<Link to="/class" style={{ fontWeight: '500', fontSize: '16px' }}>
+												View all course
+											</Link>
+										</>
+									}>
+									<Upcoming />
+								</Card1>
+							</Col>
+							<Col span={24} md={12}>
+								<Card1
+									header={
+										<>
+											<Title level={4}>{userInfo.role === 'teacher' ? 'Teaching' : 'Learning'} History</Title>
+										</>
+									}>
+									<History />
+								</Card1>
+							</Col>
+						</Row>
+					)}
 				</>
 			</Body>
 		</>
