@@ -18,15 +18,23 @@ import SubjectView from '../pages/SubjectView';
 import ClassView from '../pages/ClassView';
 import Score from '../pages/Score';
 import TimeTable from '../pages/TimeTable';
+import ForgetPassword from '../pages/ForgetPassword';
 
 const routes = [
 	{
 		path: '/signin',
 		element: <Signin />,
+		noLayout: true,
 	},
 	{
 		path: '/signup',
 		element: <Signup />,
+		noLayout: true,
+	},
+	{
+		path: '/forget',
+		element: <ForgetPassword />,
+		noLayout: true,
 	},
 	{
 		path: '/',

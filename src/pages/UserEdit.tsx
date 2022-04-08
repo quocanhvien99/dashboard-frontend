@@ -56,7 +56,12 @@ export default function UserEdit() {
 							</Col>
 							<Col xs={24} sm={12}>
 								<label htmlFor="dob">Date of birth</label>
-								<input type="text" name="dob" id="dob" defaultValue={userInfo.dob} />
+								<input
+									type="date"
+									name="dob"
+									id="dob"
+									defaultValue={userInfo.dob && new Date(userInfo.dob as string).toISOString().split('T')[0]}
+								/>
 							</Col>
 							<Col xs={24} sm={12}>
 								<label htmlFor="gender">Gender</label>
@@ -97,8 +102,8 @@ export default function UserEdit() {
 								<input type="text" name="phone" id="phone" defaultValue={userInfo.phone} />
 							</Col>
 							<Col xs={24} sm={12}>
-								<label htmlFor="avatar">Avatar</label>
-								<input type="file" name="avatar" id="avatar" />
+								<label htmlFor="profile_pic">Avatar</label>
+								<input type="file" name="profile_pic" id="profile_pic" />
 							</Col>
 							<Col xs={24} sm={12}>
 								<label htmlFor="address">Address</label>

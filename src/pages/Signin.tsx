@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 
 function Signin() {
 	const [isFetching, setIsFetching] = useState(false);
-
 	const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -24,7 +23,13 @@ function Signin() {
 		}
 	}, [isLoggedIn, navigate]);
 
-	function onFinish(values: { email: string; password: string; remember: true }) {
+	function onFinish(values: { email: string; password: string; remember: boolean }) {
+		if (values.remember) {
+			localStorage.setItem('user-login', JSON.stringify(values));
+		} else {
+			localStorage.removeItem('user-login');
+		}
+
 		setIsFetching(true);
 		api
 			.login(values.email, values.password)
@@ -33,7 +38,7 @@ function Signin() {
 			})
 			.catch((err) => {
 				notification['error']({
-					message: 'Lỗi',
+					message: 'Error',
 					description: err,
 				});
 			})
@@ -51,7 +56,15 @@ function Signin() {
 					<Form
 						name="normal_login"
 						className="login-form"
-						initialValues={{ remember: true }}
+						initialValues={{
+							remember: true,
+							email: localStorage.getItem('user-login')
+								? JSON.parse(localStorage.getItem('user-login') as string).email
+								: '',
+							password: localStorage.getItem('user-login')
+								? JSON.parse(localStorage.getItem('user-login') as string).password
+								: '',
+						}}
 						onFinish={onFinish}
 						style={{ marginTop: '30px ' }}>
 						<Form.Item
@@ -70,7 +83,7 @@ function Signin() {
 								<Checkbox>Remember me</Checkbox>
 							</Form.Item>
 
-							<Link className="login-form-forgot" to="/">
+							<Link className="login-form-forgot" to="/forget">
 								Forgot password
 							</Link>
 						</Form.Item>

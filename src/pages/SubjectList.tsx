@@ -1,7 +1,6 @@
 import { Modal, notification, Select, Table } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { SearchOutlined } from '@ant-design/icons';
 import SC from './List.module.scss';
 import { getSubjectList, removeSubject } from '../api';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,6 @@ export default function SubjectList() {
 	const navigate = useNavigate();
 	const [limit, setLimit] = useState(2);
 	const [skip, setSkip] = useState(0);
-	const [s, setS] = useState('');
 	const [total, setTotal] = useState(0);
 	const [dataSource, setDataSource] = useState([]);
 	const [orderBy, setOrderBy] = useState('');
@@ -103,14 +101,13 @@ export default function SubjectList() {
 
 	useEffect(() => {
 		let params: any = { skip, limit };
-		if (s) params.s = s;
 		if (orderBy) params.orderby = orderBy;
 		if (sortBy) params.sortby = sortBy;
 		getSubjectList(params).then((res: any) => {
 			setTotal(res[0].total);
 			setDataSource(res);
 		});
-	}, [limit, skip, s, orderBy, sortBy, triggerReload]);
+	}, [limit, skip, orderBy, sortBy, triggerReload]);
 
 	return (
 		<>
@@ -136,12 +133,12 @@ export default function SubjectList() {
 							</Select>{' '}
 							entries
 						</div>
-						<form className={SC.Search}>
+						{/* <form className={SC.Search}>
 							<button>
 								<SearchOutlined />
 							</button>
 							<input type="text" name="search" id="search" value={s} onChange={(e) => setS(e.currentTarget.value)} />
-						</form>
+						</form> */}
 					</div>
 					<div className={SC.table}>
 						<Table

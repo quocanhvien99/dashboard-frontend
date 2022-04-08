@@ -1,7 +1,6 @@
 import moment from 'moment';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { RootState } from '../app/store';
 import SC from './Upcoming.module.scss';
 
@@ -33,21 +32,5 @@ export default function Upcoming() {
 				))}
 			</ul>
 		</div>
-	);
-}
-
-function timeFormat(start: Date, end: Date) {
-	return (
-		start.getHours() +
-		'.' +
-		start.getMinutes() +
-		' - ' +
-		end.getHours() +
-		'.' +
-		end.getMinutes() +
-		' (' +
-		(end.valueOf() - start.valueOf()) / (60 * 1000) +
-		'min' +
-		')'
 	);
 }

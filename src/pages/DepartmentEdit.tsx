@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEventHandler, FocusEvent, useEffect, useRef, useState } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Card1 from '../components/Card1';
 import '../components/Form.scss';

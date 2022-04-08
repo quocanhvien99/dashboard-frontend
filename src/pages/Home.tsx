@@ -176,9 +176,11 @@ function Home() {
 									header={
 										<>
 											<Title level={4}>Upcoming Lesson</Title>
-											<Link to="/class" style={{ fontWeight: '500', fontSize: '16px' }}>
-												View all course
-											</Link>
+											{userInfo.role === 'teacher' && (
+												<Link to="/class" style={{ fontWeight: '500', fontSize: '16px' }}>
+													View all course
+												</Link>
+											)}
 										</>
 									}>
 									<Upcoming />

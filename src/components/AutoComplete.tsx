@@ -45,6 +45,7 @@ export default function AutoComplete({ setSelectId, searchHandle, label }: Props
 					onBlur={toggleResult}
 					value={dhead}
 					style={{ marginBottom: 0 }}
+					autoComplete="off"
 				/>
 				<ul className={`${toggle ? 'show' : ''}`}>
 					{searchResult.map((x) => (

@@ -125,7 +125,7 @@ function LayoutCustom() {
 								</div>
 							</li>
 							<li onClick={() => navigate('/profile')}>My profile</li>
-							<li onClick={() => navigate('/')}>Inbox</li>
+							{/* <li onClick={() => navigate('/')}>Inbox</li> */}
 							<li onClick={logout}>Logout</li>
 						</ul>
 					</div>

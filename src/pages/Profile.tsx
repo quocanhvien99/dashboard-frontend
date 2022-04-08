@@ -9,6 +9,7 @@ import SC from './Profile.module.scss';
 import { changePassword as changePassApi, editProfile, getUserInfo } from '../api';
 import { update as updateAction } from '../slices/user';
 import Body from '../components/Body';
+import moment from 'moment';
 
 export default function Profile() {
 	const dispatch = useDispatch();
@@ -124,7 +125,7 @@ export default function Profile() {
 							</div>
 							<div className={SC.row}>
 								<div className={SC.col}>Date of Birth</div>
-								<div className={SC.col}>{userInfo.dob?.split('T')[0] || 'null'}</div>
+								<div className={SC.col}>{moment(userInfo.dob).format('YYYY-MM-DD') || 'null'}</div>
 							</div>
 							<div className={SC.row}>
 								<div className={SC.col}>Gender</div>
@@ -203,8 +204,8 @@ export default function Profile() {
 							</div>
 							<label htmlFor="phone">Phone</label>
 							<input type="text" name="phone" id="phone" defaultValue={userInfo.phone as string} />
-							<label htmlFor="avatar">Avatar</label>
-							<input type="file" name="avatar" id="avatar" />
+							<label htmlFor="profile_pic">Avatar</label>
+							<input type="file" name="profile_pic" id="profile_pic" />
 							<label htmlFor="address">Address</label>
 							<input type="text" name="address" id="address" defaultValue={userInfo.address as string} />
 							<label htmlFor="city">City</label>

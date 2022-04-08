@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { useDispatch } from 'react-redux';
 import { logout as logoutAction } from './slices/user';
 import store from './app/store';
 
@@ -22,7 +21,7 @@ export function login(email: string, password: string) {
 		instance
 			.post('/user/login', { email, password })
 			.then((res) => resolve(res.data))
-			.catch((err) => reject(err.response.data));
+			.catch((err) => reject(err.response.data.msg));
 	});
 }
 export function register(name: string, email: string, password: string) {
@@ -327,6 +326,22 @@ export function getTimetable() {
 	return new Promise((resolve, reject) => {
 		instance
 			.get(`/timetable`)
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function sendCode(email: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/user/forget`, { email })
+			.then((res) => resolve(res.data))
+			.catch((err) => reject(err.response.data.msg));
+	});
+}
+export function resetPass(email: string, password: string, code: string) {
+	return new Promise((resolve, reject) => {
+		instance
+			.post(`/user/reset`, { email, password, code })
 			.then((res) => resolve(res.data))
 			.catch((err) => reject(err.response.data.msg));
 	});

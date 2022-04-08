@@ -11,8 +11,7 @@ function App() {
 		<div className="App">
 			<Routes>
 				{routes.map((route) => {
-					if (route.path === '/signin' || route.path === '/signup')
-						return <Route key={route.path} path={route.path} element={route.element} />;
+					if (route.noLayout) return <Route key={route.path} path={route.path} element={route.element} />;
 					return false;
 				})}
 				<Route
@@ -23,8 +22,7 @@ function App() {
 					}>
 					<>
 						{routes.map((route) => {
-							if (route.path !== '/signin' && route.path !== '/signup')
-								return <Route key={route.path} path={route.path} element={route.element} />;
+							if (!route.noLayout) return <Route key={route.path} path={route.path} element={route.element} />;
 							return false;
 						})}
 					</>
